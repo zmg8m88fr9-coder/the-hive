@@ -38,7 +38,7 @@ const RL_METHOD_COLORS = {
 
 function fmt(date) {
   if (!date) return '—';
-  try { return format(new Date(date), 'MMM d, HH:mm'); } catch { return '—'; }
+  try { return format(new Date(date + 'Z'), 'MMM d, HH:mm'); } catch { return '—'; }
 }
 
 function duration(opened, closed) {

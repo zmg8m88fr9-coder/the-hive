@@ -246,7 +246,7 @@ export default function BrainDetail() {
                     )}
                   </div>
                   {trade.opened_at && (
-                    <div className="text-[6px] text-[#2a2a2a] mt-1">{format(new Date(trade.opened_at), 'MMM d, HH:mm')}</div>
+                    <div className="text-[6px] text-[#2a2a2a] mt-1">{format(new Date(trade.opened_at + 'Z'), 'MMM d, HH:mm')}</div>
                   )}
                 </div>
               );
