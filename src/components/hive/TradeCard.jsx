@@ -67,7 +67,7 @@ export default function TradeCard({ trade }) {
   const chartData = useMemo(() => generateTradeChart(trade), [trade.id]);
 
   const holdMinutes = trade.opened_at && trade.closed_at
-    ? differenceInMinutes(new Date(trade.closed_at), new Date(trade.opened_at))
+    ? differenceInMinutes(new Date(trade.closed_at + 'Z'), new Date(trade.opened_at + 'Z'))
     : null;
 
   const holdLabel = holdMinutes != null
@@ -179,8 +179,8 @@ export default function TradeCard({ trade }) {
               { label: 'RETURN %', value: trade.pnl_pct != null ? `${trade.pnl_pct >= 0 ? '+' : ''}${trade.pnl_pct?.toFixed(2)}%` : '—', color: trade.pnl_pct != null ? pnlColor : '#555' },
               { label: 'QTY', value: trade.quantity ?? '—', color: '#d4d0c8' },
               { label: 'HOLD TIME', value: holdLabel, color: color },
-              { label: 'OPENED', value: trade.opened_at ? format(new Date(trade.opened_at), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
-              { label: 'CLOSED', value: trade.closed_at ? format(new Date(trade.closed_at), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
+              { label: 'OPENED', value: trade.opened_at ? format(new Date(trade.opened_at + 'Z'), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
+              { label: 'CLOSED', value: trade.closed_at ? format(new Date(trade.closed_at + 'Z'), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
               { label: 'PLAY TYPE', value: playLabel ?? '—', color: playColor ?? '#555' },
             ].map(s => (
               <div key={s.label} className="bg-[#111] rounded p-2">

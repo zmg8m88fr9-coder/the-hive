@@ -87,9 +87,9 @@ export default function AlgorithmDashboard() {
       // Cumulative P&L history (for line chart)
       let cumPnl = 0;
       s.pnlHistory = s.closedTrades
-        .sort((a, b) => new Date(a.closed_at) - new Date(b.closed_at))
+        .sort((a, b) => new Date(a.closed_at + 'Z') - new Date(b.closed_at + 'Z'))
         .map(t => ({
-          date: format(new Date(t.closed_at), 'MMM d'),
+          date: format(new Date(t.closed_at + 'Z'), 'MMM d'),
           pnl: (cumPnl += t.pnl),
           trade: t.ticker,
         }));
@@ -97,7 +97,7 @@ export default function AlgorithmDashboard() {
       // Daily Sharpe ratio approximation (rolling 30-day)
       const dailyReturns = {};
       s.closedTrades.forEach(t => {
-        const date = format(new Date(t.closed_at), 'yyyy-MM-dd');
+        const date = format(new Date(t.closed_at + 'Z'), 'yyyy-MM-dd');
         if (!dailyReturns[date]) dailyReturns[date] = [];
         dailyReturns[date].push(t.pnl);
       });
@@ -108,7 +108,7 @@ export default function AlgorithmDashboard() {
         const variance = returns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / returns.length;
         const std = Math.sqrt(variance);
         sharpeData.push({
-          date: format(new Date(date), 'MMM d'),
+          date: format(new Date(date + 'Z'), 'MMM d'),
           sharpe: std > 0 ? mean / std : 0,
         });
       });
