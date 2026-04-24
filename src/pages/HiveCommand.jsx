@@ -4,6 +4,7 @@ import { BRAINS, HIVE_STATS, generateSignals, generateSpark } from '../lib/hiveD
 import SparkLine from '../components/hive/SparkLine';
 import BrainCard from '../components/hive/BrainCard';
 import PortfolioExposure from '../components/hive/PortfolioExposure';
+import StockHunter from '../components/hive/StockHunter';
 
 export default function HiveCommand() {
   const [signals, setSignals] = useState(() => generateSignals());
@@ -76,6 +77,9 @@ export default function HiveCommand() {
 
         {/* Portfolio Exposure */}
         <PortfolioExposure />
+
+        {/* Stock Hunter */}
+        <StockHunter />
 
         {/* Live Signals */}
         <div>
