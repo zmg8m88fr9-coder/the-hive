@@ -86,8 +86,16 @@ export default function StockHunter() {
 
   return (
     <div className="space-y-3">
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-4">
-        <div className="text-[8px] font-bold tracking-widest text-[#6b6860] mb-3">STOCK HUNTER — PREDICTED WINNERS</div>
+      <div className="bg-gradient-to-br from-[#0d0d0d] to-[#050505] border-2 border-[#ef4444] rounded-xl p-4 relative overflow-hidden">
+        {/* Predator glow effect */}
+        <div className="absolute inset-0 opacity-5 blur-2xl" style={{ background: 'radial-gradient(circle, #ef4444, transparent)' }} />
+        
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[10px]">🔴</span>
+            <div className="text-[8px] font-black tracking-widest text-[#ef4444]">PREDATOR MODE ACTIVE</div>
+            <div className="text-[7px] text-[#6b6860]">— Brains hunting prey under $15</div>
+          </div>
         
         {/* Brain filter */}
         <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar">
@@ -123,84 +131,116 @@ export default function StockHunter() {
           {filtered.map((hunt, i) => {
             const profitColor = hunt.predictedPnL >= 0 ? '#22c55e' : '#ef4444';
             const confColor = hunt.confidence > 0.8 ? '#22c55e' : hunt.confidence > 0.65 ? '#FFB81C' : '#f59e0b';
+            const threatLevel = hunt.confidence > 0.8 ? 'IMMINENT' : hunt.confidence > 0.65 ? 'TRACKING' : 'STALKING';
             
             return (
               <div
                 key={`${hunt.brain.id}-${hunt.ticker}`}
-                className="bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#2a2a2a] transition-all"
+                className="relative overflow-hidden rounded-lg p-3 transition-all hover:scale-102 group"
+                style={{ 
+                  background: hunt.confidence > 0.8 ? 'rgba(34, 197, 94, 0.05)' : 'rgba(17, 17, 17, 1)',
+                  border: hunt.confidence > 0.8 ? '2px solid #22c55e' : '1px solid #1a1a1a'
+                }}
               >
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{hunt.brain.icon}</span>
-                    <div>
-                      <div className="mono font-black text-sm text-[#d4d0c8]">{hunt.ticker}</div>
-                      <div className="text-[7px] text-[#4a4a44]" style={{ color: hunt.brain.color }}>
-                        {hunt.brain.name}
+                {/* Hunt intensity pulse */}
+                {hunt.confidence > 0.8 && (
+                  <div className="absolute inset-0 opacity-10 animate-pulse" style={{ background: '#22c55e' }} />
+                )}
+                
+                {/* Threat badge */}
+                <div className="absolute top-2 right-2 text-[6px] font-black px-1.5 py-0.5 rounded-full tracking-widest"
+                  style={{
+                    background: hunt.confidence > 0.8 ? '#22c55e20' : hunt.confidence > 0.65 ? '#FFB81C20' : '#f59e0b20',
+                    color: threatLevel === 'IMMINENT' ? '#22c55e' : threatLevel === 'TRACKING' ? '#FFB81C' : '#f59e0b',
+                    border: `1px solid ${threatLevel === 'IMMINENT' ? '#22c55e50' : threatLevel === 'TRACKING' ? '#FFB81C50' : '#f59e0b50'}`
+                  }}>
+                  {threatLevel}
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{hunt.brain.icon}</span>
+                      <div>
+                        <div className="mono font-black text-sm text-[#d4d0c8]">{hunt.ticker}</div>
+                        <div className="text-[7px]" style={{ color: hunt.brain.color }}>
+                          {hunt.brain.name}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[9px] font-black" style={{ color: profitColor }}>
+                        {hunt.predictedPnL >= 0 ? '▲ +' : '▼ '}${Math.abs(hunt.predictedPnL).toFixed(0)}
+                      </div>
+                      <div className="text-[6px] text-[#4a4a44]">KILL REWARD</div>
+                    </div>
+                  </div>
+
+                  {/* Prey detection radar */}
+                  <div className="mb-2 p-2 rounded" style={{ background: hunt.confidence > 0.8 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(0,0,0,0.3)' }}>
+                    <div className="text-[6px] text-[#4a4a44] mb-1 tracking-widest">PREY DETECTED</div>
+                    <div className="grid grid-cols-3 gap-1">
+                      <div className="text-center">
+                        <div className="text-[9px] font-bold text-[#d4d0c8]">${hunt.entryPrice.toFixed(2)}</div>
+                        <div className="text-[6px] text-[#3a3a3a]">STRIKE ZONE</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-[9px] font-bold" style={{ color: profitColor }}>
+                          {hunt.expectedReturn >= 0 ? '+' : ''}{hunt.expectedReturn.toFixed(1)}%
+                        </div>
+                        <div className="text-[6px] text-[#3a3a3a]">ESCAPE VELOCITY</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-[9px] font-bold" style={{ color: hunt.confidence > 0.8 ? '#22c55e' : '#FFB81C' }}>
+                          ${hunt.targetPrice.toFixed(2)}
+                        </div>
+                        <div className="text-[6px] text-[#3a3a3a]">KILL ZONE</div>
                       </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-[8px] font-bold" style={{ color: profitColor }}>
-                      {hunt.predictedPnL >= 0 ? '+' : ''}${hunt.predictedPnL.toFixed(0)}
+
+                  {/* Predator confidence / hunt certainty */}
+                  <div className="mb-2">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <span className="text-[7px] font-bold text-[#d4d0c8]">HUNT CERTAINTY</span>
+                      <span className="text-[8px] font-black" style={{ color: confColor }}>
+                        {(hunt.confidence * 100).toFixed(0)}%
+                      </span>
                     </div>
-                    <div className="text-[7px] text-[#4a4a44]">Predicted P&L</div>
-                  </div>
-                </div>
-
-                {/* Price and target */}
-                <div className="grid grid-cols-3 gap-1 mb-2">
-                  <div className="bg-[#0d0d0d] rounded p-1.5 text-center">
-                    <div className="text-[9px] font-bold text-[#d4d0c8]">${hunt.entryPrice.toFixed(2)}</div>
-                    <div className="text-[6px] text-[#3a3a3a]">ENTRY</div>
-                  </div>
-                  <div className="bg-[#0d0d0d] rounded p-1.5 text-center">
-                    <div className="text-[9px] font-bold" style={{ color: profitColor }}>
-                      {hunt.expectedReturn >= 0 ? '+' : ''}{hunt.expectedReturn.toFixed(1)}%
+                    <div className="w-full h-2 bg-[#0d0d0d] rounded-full overflow-hidden border border-[#1a1a1a]">
+                      <div
+                        className="h-full rounded-full transition-all shadow-lg"
+                        style={{
+                          width: `${hunt.confidence * 100}%`,
+                          background: `linear-gradient(90deg, ${confColor}, ${confColor}dd)`,
+                          boxShadow: `0 0 8px ${confColor}60`
+                        }}
+                      />
                     </div>
-                    <div className="text-[6px] text-[#3a3a3a]">RETURN</div>
                   </div>
-                  <div className="bg-[#0d0d0d] rounded p-1.5 text-center">
-                    <div className="text-[9px] font-bold text-[#d4d0c8]">${hunt.targetPrice.toFixed(2)}</div>
-                    <div className="text-[6px] text-[#3a3a3a]">TARGET</div>
-                  </div>
-                </div>
 
-                {/* Confidence */}
-                <div className="mb-2">
-                  <div className="flex items-center justify-between mb-0.5">
-                    <span className="text-[7px] text-[#4a4a44]">Confidence</span>
-                    <span className="text-[8px] font-bold" style={{ color: confColor }}>
-                      {(hunt.confidence * 100).toFixed(0)}%
-                    </span>
+                  {/* Predator insight */}
+                  <div className="text-[7px] leading-relaxed" style={{ color: hunt.confidence > 0.8 ? '#22c55e' : '#6b6860' }}>
+                    <span className="font-bold">HUNTER INSTINCT:</span> {hunt.reasoning}
                   </div>
-                  <div className="w-full h-1 bg-[#0d0d0d] rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${hunt.confidence * 100}%`,
-                        background: confColor,
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Reasoning */}
-                <div className="text-[7px] text-[#5a5a54] leading-relaxed">
-                  {hunt.reasoning}
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Legend */}
-        <div className="mt-3 pt-3 border-t border-[#1a1a1a]">
-          <div className="text-[6px] text-[#3a3a3a] tracking-widest mb-1.5">SELECTION CRITERIA</div>
-          <div className="space-y-1 text-[7px] text-[#4a4a44]">
-            <div>• Stocks under <span className="text-[#FFB81C] font-bold">$15</span> only</div>
-            <div>• Predictions based on each brain's <span className="text-[#FFB81C] font-bold">winning patterns</span></div>
-            <div>• Confidence reflects <span className="text-[#FFB81C] font-bold">historical accuracy</span></div>
+        {/* Predator Protocol */}
+        <div className="mt-3 pt-3 border-t border-[#ef4444]30">
+          <div className="text-[6px] text-[#ef4444] font-bold tracking-widest mb-2 flex items-center gap-1">
+            ⚔️ PREDATOR PROTOCOL
           </div>
+          <div className="space-y-1 text-[7px] text-[#5a5a54]">
+            <div>• <span className="text-[#22c55e]">IMMINENT:</span> High confidence kill zone — brain sees the weakness</div>
+            <div>• <span className="text-[#FFB81C]">TRACKING:</span> Prey in sights — waiting for optimal strike</div>
+            <div>• <span className="text-[#f59e0b]">STALKING:</span> Prey detected — patience before the hunt</div>
+            <div>• Only <span className="text-[#FFB81C] font-bold">$15 or under</span> — easy to stalk, hard to escape</div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
