@@ -5,11 +5,13 @@ import RoiChart from '../components/hive/perf/RoiChart';
 import DrawdownChart from '../components/hive/perf/DrawdownChart';
 import SharpeChart from '../components/hive/perf/SharpeChart';
 import BrainMetricCard from '../components/hive/perf/BrainMetricCard';
+import PnLDashboard from '../components/hive/perf/PnLDashboard';
 
 const METRICS = [
-  { id: "roi",      label: "CUMULATIVE ROI" },
-  { id: "drawdown", label: "DRAWDOWN"       },
-  { id: "sharpe",   label: "SHARPE RATIO"  },
+  { id: "pnl",      label: "P&L"           },
+  { id: "roi",      label: "ROI"           },
+  { id: "drawdown", label: "DRAWDOWN"      },
+  { id: "sharpe",   label: "SHARPE"        },
 ];
 
 export default function PerformanceDashboard() {
