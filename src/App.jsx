@@ -19,6 +19,7 @@ import BrainAnalytics from './pages/BrainAnalytics';
 import AlgorithmDashboard from './pages/AlgorithmDashboard';
 import AlgorithmLibrary from './pages/AlgorithmLibrary';
 import CorrelationMap from './pages/CorrelationMap';
+import BrainHeatmap from './pages/BrainHeatmap';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -59,6 +60,7 @@ const AuthenticatedApp = () => {
           <Route path="/algorithms" element={<AlgorithmDashboard />} />
           <Route path="/library" element={<AlgorithmLibrary />} />
           <Route path="/correlations" element={<CorrelationMap />} />
+          <Route path="/heatmap" element={<BrainHeatmap />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>

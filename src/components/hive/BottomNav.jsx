@@ -6,6 +6,7 @@ const NAV = [
   { path: "/signals",     icon: "◎", label: "SIGNALS" },
   { path: "/trades",      icon: "⊞", label: "TRADES"  },
   { path: "/perf",        icon: "▲", label: "PERF"    },
+  { path: "/heatmap",     icon: "🔥", label: "HEAT"   },
   { path: "/analytics",   icon: "◑", label: "INTEL"   },
   { path: "/algorithms",  icon: "⧬", label: "ALGOS"   },
   { path: "/library",     icon: "⨳", label: "LIBRARY" },
