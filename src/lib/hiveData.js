@@ -261,12 +261,17 @@ export const HIVE_STATS = {
   totalTrades: BRAINS.reduce((s, b) => s + b.totalTrades, 0),
 };
 
-// Generate fake sparkline data
-export function generateSpark(length = 20, trend = 0) {
+// Generate seeded sparkline data — consistent per brain (no random rerenders)
+export function generateSpark(length = 20, trend = 0, seed = 42) {
+  let s = seed;
+  const rand = () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
   const data = [];
-  let price = 100 + Math.random() * 50;
+  let price = 100 + rand() * 50;
   for (let i = 0; i < length; i++) {
-    price += (Math.random() - 0.48 + trend * 0.05) * 2;
+    price += (rand() - 0.48 + trend * 0.05) * 2;
     data.push(Math.max(10, price));
   }
   return data;

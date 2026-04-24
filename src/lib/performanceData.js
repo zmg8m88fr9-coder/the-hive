@@ -49,11 +49,14 @@ export function generatePerformanceHistory() {
       });
     }
 
-    // Scale last equity to match brain's actual balance
+    // Scale last equity to match brain's actual balance, then recalculate peak-based drawdown
     const scaleFactor = brain.balance / days[days.length - 1].equity;
+    let scaledPeak = brain.startingBalance;
     days.forEach(d => {
       d.equity = parseFloat((d.equity * scaleFactor).toFixed(2));
       d.roi = parseFloat(((d.equity - brain.startingBalance) / brain.startingBalance * 100).toFixed(2));
+      scaledPeak = Math.max(scaledPeak, d.equity);
+      d.drawdown = parseFloat(((scaledPeak - d.equity) / scaledPeak * 100).toFixed(2));
     });
 
     // Calculate Sharpe rolling 30d

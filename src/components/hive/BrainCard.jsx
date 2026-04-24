@@ -7,7 +7,8 @@ export default function BrainCard({ brain, compact = false }) {
   const { color, icon, name, focus, sin, balance, startingBalance, totalPnl, totalTrades, wonTrades } = brain;
   const pnlPct = startingBalance > 0 ? ((balance - startingBalance) / startingBalance) * 100 : 0;
   const winRate = totalTrades > 0 ? ((wonTrades / totalTrades) * 100).toFixed(0) : "0";
-  const spark = useMemo(() => generateSpark(20, pnlPct > 0 ? 1 : -1), [brain.id]);
+  const seed = brain.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const spark = useMemo(() => generateSpark(20, pnlPct > 0 ? 1 : -1, seed), [brain.id]);
 
   if (compact) {
     return (

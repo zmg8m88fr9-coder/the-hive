@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { BRAINS, generateSpark } from '../lib/hiveData';
 import SparkLine from '../components/hive/SparkLine';
 
@@ -14,6 +14,13 @@ export default function BrainDetail() {
   const { id } = useParams();
   const [tab, setTab] = useState("soul");
   const brain = BRAINS.find(b => b.id === id);
+
+  const seed = id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const spark = useMemo(() => {
+    if (!brain) return [];
+    const pct = ((brain.balance - brain.startingBalance) / brain.startingBalance) * 100;
+    return generateSpark(30, pct > 0 ? 1 : -1, seed);
+  }, [id]);
 
   if (!brain) {
     return (
@@ -31,7 +38,6 @@ export default function BrainDetail() {
 
   const pnlPct = startingBalance > 0 ? ((balance - startingBalance) / startingBalance) * 100 : 0;
   const winRate = totalTrades > 0 ? ((wonTrades / totalTrades) * 100).toFixed(1) : "0.0";
-  const spark = generateSpark(30, pnlPct > 0 ? 1 : -1);
 
   return (
     <div className="flex flex-col min-h-full">
