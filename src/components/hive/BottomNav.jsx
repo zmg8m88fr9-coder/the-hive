@@ -8,6 +8,7 @@ const NAV = [
   { path: "/perf",       icon: "▲", label: "PERF"    },
   { path: "/analytics",  icon: "◑", label: "INTEL"   },
   { path: "/algorithms", icon: "⧬", label: "ALGOS"   },
+  { path: "/library",    icon: "⨳", label: "LIBRARY" },
   { path: "/chat",       icon: "⦿", label: "CHAT"    },
 ];
 

@@ -5,7 +5,7 @@ const PLAY_LABELS = {
   bear_flag: 'BEAR FLAG', scalp: 'SCALP', breakout: 'BREAKOUT',
   reversal: 'REVERSAL', mean_reversion: 'MEAN REV', gamma_squeeze: 'GAMMA SQZ',
   trend_follow: 'TREND', news_catalyst: 'NEWS', liquidity_sweep: 'LIQ SWEEP',
-  unknown: 'UNKNOWN',
+  vwap_trend_day: 'VWAP TREND', unknown: 'UNKNOWN',
 };
 
 const PLAY_COLORS = {
@@ -13,7 +13,7 @@ const PLAY_COLORS = {
   bear_flag: '#ef4444', scalp: '#3b82f6', breakout: '#FFB81C',
   reversal: '#a855f7', mean_reversion: '#06b6d4', gamma_squeeze: '#f97316',
   trend_follow: '#22c55e', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
-  unknown: '#555',
+  vwap_trend_day: '#22c55e', unknown: '#555',
 };
 
 const CustomTooltip = ({ active, payload, label }) => {

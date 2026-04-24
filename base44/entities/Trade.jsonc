@@ -62,7 +62,8 @@
         "carry_trade",
         "stop_hunt",
         "portfolio_hedge",
-        "transfer_play"
+        "transfer_play",
+        "vwap_trend_day"
       ],
       "description": "The type of trade setup/play \u2014 expanded with RL-inspired strategies"
     },

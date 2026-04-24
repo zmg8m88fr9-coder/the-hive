@@ -17,7 +17,7 @@ const PLAY_LABELS = {
   trend_follow: 'TREND', news_catalyst: 'NEWS', liquidity_sweep: 'LIQ SWEEP',
   pairs_trade: 'PAIRS', stat_arb: 'STAT ARB', regime_switch: 'REGIME',
   iv_crush: 'IV CRUSH', carry_trade: 'CARRY', stop_hunt: 'STOP HUNT',
-  portfolio_hedge: 'HEDGE', transfer_play: 'TRANSFER',
+  portfolio_hedge: 'HEDGE', transfer_play: 'TRANSFER', vwap_trend_day: 'VWAP TREND',
 };
 
 const PLAY_COLORS = {
@@ -27,7 +27,7 @@ const PLAY_COLORS = {
   trend_follow: '#22c55e', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
   pairs_trade: '#0ea5e9', stat_arb: '#14b8a6', regime_switch: '#84cc16',
   iv_crush: '#a855f7', carry_trade: '#22c55e', stop_hunt: '#3b82f6',
-  portfolio_hedge: '#6b7280', transfer_play: '#f59e0b',
+  portfolio_hedge: '#6b7280', transfer_play: '#f59e0b', vwap_trend_day: '#22c55e',
 };
 
 const RL_METHOD_COLORS = {
