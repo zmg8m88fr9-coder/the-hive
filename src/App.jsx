@@ -16,6 +16,7 @@ import HiveChat from './pages/HiveChat';
 import PerformanceDashboard from './pages/PerformanceDashboard';
 import TradeHistory from './pages/TradeHistory';
 import BrainAnalytics from './pages/BrainAnalytics';
+import AlgorithmDashboard from './pages/AlgorithmDashboard';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -53,6 +54,7 @@ const AuthenticatedApp = () => {
           <Route path="/perf" element={<PerformanceDashboard />} />
           <Route path="/trades" element={<TradeHistory />} />
           <Route path="/analytics" element={<BrainAnalytics />} />
+          <Route path="/algorithms" element={<AlgorithmDashboard />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
