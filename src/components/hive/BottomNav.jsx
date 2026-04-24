@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 
 const NAV = [
-  { path: "/",         icon: "⬡", label: "HIVE"     },
-  { path: "/brains",   icon: "◈", label: "BRAINS"   },
-  { path: "/signals",  icon: "◎", label: "SIGNALS"  },
-  { path: "/neural",   icon: "🧠", label: "NEURAL"   },
-  { path: "/chat",     icon: "⦿", label: "CHAT"     },
+  { path: "/",           icon: "⬡", label: "HIVE"    },
+  { path: "/brains",     icon: "◈", label: "BRAINS"  },
+  { path: "/signals",    icon: "◎", label: "SIGNALS" },
+  { path: "/perf",       icon: "▲", label: "PERF"    },
+  { path: "/neural",     icon: "🧠", label: "NEURAL"  },
+  { path: "/chat",       icon: "⦿", label: "CHAT"    },
 ];
 
 export default function BottomNav() {
@@ -19,7 +20,7 @@ export default function BottomNav() {
           const active = item.path === "/" ? location.pathname === "/" : location.pathname.startsWith(item.path);
           return (
             <Link key={item.path} to={item.path}>
-              <div className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-all"
+              <div className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg transition-all"
                 style={{ background: active ? "#FFB81C15" : "transparent" }}>
                 <span className="text-base" style={{ color: active ? "#FFB81C" : "#6b6860" }}>{item.icon}</span>
                 <span className="text-[7px] font-bold tracking-widest" style={{ color: active ? "#FFB81C" : "#4a4a44" }}>

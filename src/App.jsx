@@ -13,6 +13,7 @@ import BrainDetail from './pages/BrainDetail';
 import HiveSignals from './pages/HiveSignals';
 import NeuralMap from './pages/NeuralMap';
 import HiveChat from './pages/HiveChat';
+import PerformanceDashboard from './pages/PerformanceDashboard';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -47,6 +48,7 @@ const AuthenticatedApp = () => {
           <Route path="/signals" element={<HiveSignals />} />
           <Route path="/neural" element={<NeuralMap />} />
           <Route path="/chat" element={<HiveChat />} />
+          <Route path="/perf" element={<PerformanceDashboard />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
