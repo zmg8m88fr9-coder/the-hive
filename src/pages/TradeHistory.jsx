@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BRAINS } from '../lib/hiveData';
-import { format } from 'date-fns';
+import TradeCard from '../components/hive/TradeCard';
 
 const BRAIN_FILTER = ["ALL", "THE_BRAIN", "APEX", "VENOM", "ORACLE", "GHOST", "TITAN"];
 const STATUS_FILTER = ["ALL", "open", "closed", "cancelled"];
@@ -90,68 +90,9 @@ export default function TradeHistory() {
           </div>
         )}
 
-        {filtered.map(trade => {
-          const brain = BRAINS.find(b => b.id === trade.brain_id);
-          const color = brain?.color ?? "#FFB81C";
-          const isBuy = trade.action === "BUY";
-          const isOpen = trade.status === "open";
-          const pnlColor = (trade.pnl ?? 0) >= 0 ? "#22c55e" : "#ef4444";
-
-          return (
-            <div key={trade.id} className="bg-[#0d0d0d] border rounded-xl p-3"
-              style={{ borderColor: isOpen ? color + "40" : "#1a1a1a" }}>
-              <div className="flex items-start gap-2.5">
-                {/* Brain icon */}
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
-                  style={{ background: color + "15", border: `1px solid ${color}30` }}>
-                  {brain?.icon ?? "◎"}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  {/* Row 1: ticker + action + status */}
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="mono font-black text-sm text-[#d4d0c8]">{trade.ticker}</span>
-                    <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${isBuy ? "bg-[#22c55e20] text-[#22c55e]" : "bg-[#ef444420] text-[#ef4444]"}`}>
-                      {isBuy ? "▲ BUY" : "▼ SHORT"}
-                    </span>
-                    <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded ml-auto ${isOpen ? "bg-[#22c55e15] text-[#22c55e]" : trade.status === "cancelled" ? "bg-[#ef444415] text-[#ef4444]" : "bg-[#FFB81C15] text-[#FFB81C]"}`}>
-                      {trade.status.toUpperCase()}
-                    </span>
-                  </div>
-
-                  {/* Row 2: prices */}
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-[8px] text-[#5a5a54]">ENTRY <span className="text-[#9a9a94] font-mono">${trade.entry_price?.toFixed(4)}</span></span>
-                    {trade.exit_price != null && (
-                      <span className="text-[8px] text-[#5a5a54]">EXIT <span className="text-[#9a9a94] font-mono">${trade.exit_price?.toFixed(4)}</span></span>
-                    )}
-                    {trade.pnl != null && (
-                      <span className="text-[8px] font-bold mono ml-auto" style={{ color: pnlColor }}>
-                        {trade.pnl >= 0 ? "+" : ""}${trade.pnl.toFixed(2)} ({trade.pnl_pct >= 0 ? "+" : ""}{trade.pnl_pct?.toFixed(2)}%)
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Row 3: brain + time */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-[7px] font-bold px-1.5 py-0.5 rounded"
-                      style={{ background: color + "15", color, border: `1px solid ${color}30` }}>
-                      {brain?.name ?? trade.brain_id}
-                    </span>
-                    {trade.opened_at && (
-                      <span className="text-[7px] text-[#3a3a3a]">
-                        {format(new Date(trade.opened_at), 'MMM d, HH:mm')}
-                      </span>
-                    )}
-                    {trade.reasoning && (
-                      <span className="text-[7px] text-[#3a3a3a] truncate flex-1">{trade.reasoning}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {filtered.map(trade => (
+          <TradeCard key={trade.id} trade={trade} />
+        ))}
       </div>
     </div>
   );
