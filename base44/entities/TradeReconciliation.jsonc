@@ -1,0 +1,73 @@
+{
+  "name": "TradeReconciliation",
+  "type": "object",
+  "properties": {
+    "trade_id": {
+      "type": "string",
+      "description": "ID of the trade being reconciled"
+    },
+    "brain_id": {
+      "type": "string",
+      "description": "ID of the brain that made the trade"
+    },
+    "ticker": {
+      "type": "string",
+      "description": "Trading symbol"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "matched",
+        "ghost_trade",
+        "quantity_mismatch",
+        "price_mismatch",
+        "missing_exit",
+        "data_discrepancy"
+      ],
+      "description": "Reconciliation status"
+    },
+    "discrepancy_type": {
+      "type": "string",
+      "description": "Detailed discrepancy description"
+    },
+    "expected_value": {
+      "type": "string",
+      "description": "Expected value from broker statement"
+    },
+    "actual_value": {
+      "type": "string",
+      "description": "Actual value in our system"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "critical"
+      ],
+      "default": "warning",
+      "description": "Severity level of the discrepancy"
+    },
+    "reconciled_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the reconciliation was performed"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the discrepancy has been resolved"
+    },
+    "resolution_notes": {
+      "type": "string",
+      "description": "Notes on how the discrepancy was resolved"
+    }
+  },
+  "required": [
+    "trade_id",
+    "brain_id",
+    "ticker",
+    "status",
+    "severity"
+  ]
+}

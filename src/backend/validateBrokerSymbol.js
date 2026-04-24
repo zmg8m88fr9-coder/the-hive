@@ -16,6 +16,7 @@ async function validateAlpaca(symbol) {
   return fakeValid 
     ? { valid: true, broker: 'Alpaca', reason: 'Tradable' }
     : { valid: false, reason: 'Not tradable on Alpaca' };
+}
 
 async function validateWebull(symbol) {
   // Simulated Webull validation
