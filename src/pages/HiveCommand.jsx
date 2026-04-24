@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BRAINS, HIVE_STATS, generateSignals, generateSpark } from '../lib/hiveData';
 import SparkLine from '../components/hive/SparkLine';
 import BrainCard from '../components/hive/BrainCard';
+import PortfolioExposure from '../components/hive/PortfolioExposure';
 
 export default function HiveCommand() {
   const [signals, setSignals] = useState(() => generateSignals());
@@ -72,6 +73,9 @@ export default function HiveCommand() {
             ))}
           </div>
         </div>
+
+        {/* Portfolio Exposure */}
+        <PortfolioExposure />
 
         {/* Live Signals */}
         <div>
