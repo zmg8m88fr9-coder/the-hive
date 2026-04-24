@@ -6,6 +6,18 @@
       "type": "string",
       "description": "ID of the brain that made the trade (e.g. THE_BRAIN, APEX)"
     },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "stock",
+        "crypto",
+        "options",
+        "futures",
+        "forex",
+        "etf"
+      ],
+      "description": "The type of asset being traded"
+    },
     "ticker": {
       "type": "string",
       "description": "Trading symbol (e.g. NVDA, BTC, EURUSD)"
