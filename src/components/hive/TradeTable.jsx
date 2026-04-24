@@ -1,6 +1,15 @@
 import { format } from 'date-fns';
 import { BRAINS } from '../../lib/hiveData';
 
+function getAssetClass(ticker) {
+  if (['BTC','ETH','SOL','DOGE','ADA','XRP','AVAX','LINK'].includes(ticker)) return { label: 'CRYPTO', color: '#f59e0b' };
+  if (ticker.endsWith('_F')) return { label: 'FUTURES', color: '#3b82f6' };
+  if (['EURUSD','GBPUSD','USDJPY','AUDUSD','USDCHF','USDCAD','XAUUSD','GBPJPY'].includes(ticker)) return { label: 'FOREX', color: '#22c55e' };
+  if (['SPY','QQQ','IWM','GLD','ARKK','XLK','XLE','TQQQ','SQQQ','DIA'].includes(ticker)) return { label: 'ETF', color: '#a855f7' };
+  // If entry price < 20 and ticker matches an equity — likely options contract
+  return { label: 'STOCK', color: '#FFB81C' };
+}
+
 const PLAY_LABELS = {
   momentum: 'MOMENTUM', short_squeeze: 'SHORT SQZ', bull_flag: 'BULL FLAG',
   bear_flag: 'BEAR FLAG', scalp: 'SCALP', breakout: 'BREAKOUT',
@@ -42,7 +51,7 @@ export default function TradeTable({ trades }) {
       <table className="w-full text-[8px] font-mono min-w-[700px]">
         <thead>
           <tr className="border-b border-[#1a1a1a]">
-            {['BRAIN', 'ASSET', 'DIR', 'PLAY', 'ENTRY $', 'EXIT $', 'QTY', 'P&L $', 'P&L %', 'OPENED', 'CLOSED', 'HOLD', 'STATUS'].map(h => (
+            {['BRAIN', 'ASSET', 'CLASS', 'DIR', 'PLAY', 'ENTRY $', 'EXIT $', 'QTY', 'P&L $', 'P&L %', 'OPENED', 'CLOSED', 'HOLD', 'STATUS'].map(h => (
               <th key={h} className="text-left py-2 px-2 text-[7px] text-[#3a3a3a] tracking-widest font-bold whitespace-nowrap">{h}</th>
             ))}
           </tr>
@@ -73,6 +82,19 @@ export default function TradeTable({ trades }) {
                 {/* Asset */}
                 <td className="py-2 px-2 whitespace-nowrap">
                   <span className="font-black text-[9px] text-[#d4d0c8]">{trade.ticker}</span>
+                </td>
+
+                {/* Asset Class */}
+                <td className="py-2 px-2 whitespace-nowrap">
+                  {(() => {
+                    const ac = getAssetClass(trade.ticker);
+                    return (
+                      <span className="px-1.5 py-0.5 rounded text-[7px] font-bold"
+                        style={{ background: ac.color + '18', color: ac.color, border: `1px solid ${ac.color}30` }}>
+                        {ac.label}
+                      </span>
+                    );
+                  })()}
                 </td>
 
                 {/* Direction */}
