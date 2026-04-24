@@ -18,6 +18,7 @@ import TradeHistory from './pages/TradeHistory';
 import BrainAnalytics from './pages/BrainAnalytics';
 import AlgorithmDashboard from './pages/AlgorithmDashboard';
 import AlgorithmLibrary from './pages/AlgorithmLibrary';
+import CorrelationMap from './pages/CorrelationMap';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -57,6 +58,7 @@ const AuthenticatedApp = () => {
           <Route path="/analytics" element={<BrainAnalytics />} />
           <Route path="/algorithms" element={<AlgorithmDashboard />} />
           <Route path="/library" element={<AlgorithmLibrary />} />
+          <Route path="/correlations" element={<CorrelationMap />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>

@@ -1,15 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 
 const NAV = [
-  { path: "/",           icon: "⬡", label: "HIVE"    },
-  { path: "/brains",     icon: "◈", label: "BRAINS"  },
-  { path: "/signals",    icon: "◎", label: "SIGNALS" },
-  { path: "/trades",     icon: "⊞", label: "TRADES"  },
-  { path: "/perf",       icon: "▲", label: "PERF"    },
-  { path: "/analytics",  icon: "◑", label: "INTEL"   },
-  { path: "/algorithms", icon: "⧬", label: "ALGOS"   },
-  { path: "/library",    icon: "⨳", label: "LIBRARY" },
-  { path: "/chat",       icon: "⦿", label: "CHAT"    },
+  { path: "/",            icon: "⬡", label: "HIVE"    },
+  { path: "/brains",      icon: "◈", label: "BRAINS"  },
+  { path: "/signals",     icon: "◎", label: "SIGNALS" },
+  { path: "/trades",      icon: "⊞", label: "TRADES"  },
+  { path: "/perf",        icon: "▲", label: "PERF"    },
+  { path: "/analytics",   icon: "◑", label: "INTEL"   },
+  { path: "/algorithms",  icon: "⧬", label: "ALGOS"   },
+  { path: "/library",     icon: "⨳", label: "LIBRARY" },
+  { path: "/correlations", icon: "◇", label: "RISK"   },
+  { path: "/chat",        icon: "⦿", label: "CHAT"    },
 ];
 
 export default function BottomNav() {
