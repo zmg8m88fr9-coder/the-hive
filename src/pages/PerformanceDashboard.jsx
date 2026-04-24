@@ -15,7 +15,7 @@ const METRICS = [
 ];
 
 export default function PerformanceDashboard() {
-  const [activeMetric, setActiveMetric] = useState("roi");
+  const [activeMetric, setActiveMetric] = useState("pnl");
   const [selectedBrains, setSelectedBrains] = useState(new Set(BRAINS.map(b => b.id)));
 
   const history = useMemo(() => generatePerformanceHistory(), []);
@@ -66,41 +66,46 @@ export default function PerformanceDashboard() {
       </div>
 
       <div className="px-4 pt-3 pb-6 space-y-4">
-        {/* Brain Filter Toggles */}
-        <div className="flex gap-1.5 flex-wrap">
-          {BRAINS.map(b => {
-            const on = selectedBrains.has(b.id);
-            return (
-              <button key={b.id} onClick={() => toggleBrain(b.id)}
-                className="flex items-center gap-1 px-2 py-1 rounded-full text-[7px] font-bold tracking-widest transition-all"
-                style={{
-                  background: on ? b.color + "20" : "#0d0d0d",
-                  border: `1px solid ${on ? b.color + "60" : "#1a1a1a"}`,
-                  color: on ? b.color : "#333",
-                }}>
-                <span>{b.icon}</span>
-                <span>{b.name}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* P&L Dashboard — has its own controls */}
+        {activeMetric === "pnl" && <PnLDashboard />}
 
-        {/* Main Chart */}
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-          {activeMetric === "roi" && <RoiChart history={history} brains={activeBrains} />}
-          {activeMetric === "drawdown" && <DrawdownChart history={history} brains={activeBrains} />}
-          {activeMetric === "sharpe" && <SharpeChart history={history} brains={activeBrains} />}
-        </div>
+        {/* Other metrics — shared brain filter + charts */}
+        {activeMetric !== "pnl" && (
+          <>
+            <div className="flex gap-1.5 flex-wrap">
+              {BRAINS.map(b => {
+                const on = selectedBrains.has(b.id);
+                return (
+                  <button key={b.id} onClick={() => toggleBrain(b.id)}
+                    className="flex items-center gap-1 px-2 py-1 rounded-full text-[7px] font-bold tracking-widest transition-all"
+                    style={{
+                      background: on ? b.color + "20" : "#0d0d0d",
+                      border: `1px solid ${on ? b.color + "60" : "#1a1a1a"}`,
+                      color: on ? b.color : "#333",
+                    }}>
+                    <span>{b.icon}</span>
+                    <span>{b.name}</span>
+                  </button>
+                );
+              })}
+            </div>
 
-        {/* Per-Brain Metric Cards */}
-        <div>
-          <div className="text-[8px] font-bold tracking-widest text-[#6b6860] mb-2">BRAIN BREAKDOWN</div>
-          <div className="space-y-2">
-            {activeBrains.map(b => (
-              <BrainMetricCard key={b.id} brain={b} history={history[b.id]} metric={activeMetric} />
-            ))}
-          </div>
-        </div>
+            <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
+              {activeMetric === "roi" && <RoiChart history={history} brains={activeBrains} />}
+              {activeMetric === "drawdown" && <DrawdownChart history={history} brains={activeBrains} />}
+              {activeMetric === "sharpe" && <SharpeChart history={history} brains={activeBrains} />}
+            </div>
+
+            <div>
+              <div className="text-[8px] font-bold tracking-widest text-[#6b6860] mb-2">BRAIN BREAKDOWN</div>
+              <div className="space-y-2">
+                {activeBrains.map(b => (
+                  <BrainMetricCard key={b.id} brain={b} history={history[b.id]} metric={activeMetric} />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
