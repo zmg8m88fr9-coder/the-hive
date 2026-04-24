@@ -10,14 +10,12 @@ async function validateAlpaca(symbol) {
     return { valid: false, reason: 'Symbol required' };
   }
 
-  try {
   // Simulated Alpaca validation
   // In production: call https://paper-api.alpaca.markets/v2/assets/{symbol}
   const fakeValid = Math.random() > 0.1; // 90% valid
   return fakeValid 
     ? { valid: true, broker: 'Alpaca', reason: 'Tradable' }
     : { valid: false, reason: 'Not tradable on Alpaca' };
-}
 
 async function validateWebull(symbol) {
   // Simulated Webull validation
