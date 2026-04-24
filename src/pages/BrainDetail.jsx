@@ -180,6 +180,17 @@ export default function BrainDetail() {
                 <div className="text-[9px] text-[#d4d0c8]">{lastLesson}</div>
               </div>
             )}
+            {brain.rlMethod && (
+              <div className="bg-[#111] border rounded p-3 space-y-1.5" style={{ borderColor: color + '20' }}>
+                <div className="text-[7px] tracking-widest mb-1" style={{ color: color + '80' }}>RL ARCHITECTURE</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[8px] font-bold px-1.5 py-0.5 rounded" style={{ background: color + '15', color }}>{brain.rlMethod}</span>
+                  <span className="text-[7px] text-[#4a4a44]">→</span>
+                  <span className="text-[8px] text-[#FFB81C] font-bold">{brain.rlReward}</span>
+                </div>
+                {brain.rlNotes && <div className="text-[8px] text-[#5a5a54] leading-relaxed">{brain.rlNotes}</div>}
+              </div>
+            )}
           </div>
         )}
 

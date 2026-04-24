@@ -6,21 +6,21 @@
       "type": "string",
       "description": "ID of the brain that made the trade (e.g. THE_BRAIN, APEX)"
     },
+    "ticker": {
+      "type": "string",
+      "description": "Trading symbol (e.g. NVDA, BTC, EURUSD)"
+    },
     "asset_type": {
       "type": "string",
       "enum": [
         "stock",
         "crypto",
-        "options",
-        "futures",
         "forex",
+        "futures",
+        "options",
         "etf"
       ],
-      "description": "The type of asset being traded"
-    },
-    "ticker": {
-      "type": "string",
-      "description": "Trading symbol (e.g. NVDA, BTC, EURUSD)"
+      "description": "Asset class of the instrument traded"
     },
     "action": {
       "type": "string",
@@ -54,9 +54,44 @@
         "gamma_squeeze",
         "trend_follow",
         "news_catalyst",
-        "liquidity_sweep"
+        "liquidity_sweep",
+        "pairs_trade",
+        "stat_arb",
+        "regime_switch",
+        "iv_crush",
+        "carry_trade",
+        "stop_hunt",
+        "portfolio_hedge",
+        "transfer_play"
       ],
-      "description": "The type of trade setup/play"
+      "description": "The type of trade setup/play \u2014 expanded with RL-inspired strategies"
+    },
+    "rl_method": {
+      "type": "string",
+      "enum": [
+        "DQN",
+        "PPO",
+        "DDPG",
+        "RRL",
+        "A2C",
+        "Q-Learning",
+        "SARSA",
+        "Actor-Critic",
+        "Model-Based"
+      ],
+      "description": "Underlying RL algorithm driving this trade decision"
+    },
+    "reward_signal": {
+      "type": "string",
+      "enum": [
+        "sharpe_ratio",
+        "profit_based",
+        "utility",
+        "differential_sr",
+        "sortino",
+        "composite"
+      ],
+      "description": "Reward function optimised for this trade"
     },
     "entry_price": {
       "type": "number",
@@ -77,6 +112,10 @@
     "pnl_pct": {
       "type": "number",
       "description": "Profit or loss percentage (null if still open)"
+    },
+    "confidence": {
+      "type": "number",
+      "description": "Brain confidence score 0-1 at trade entry"
     },
     "reasoning": {
       "type": "string",

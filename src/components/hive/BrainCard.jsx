@@ -48,6 +48,12 @@ export default function BrainCard({ brain, compact = false }) {
             <div>
               <div className="text-xs font-black tracking-widest" style={{ color }}>{name}</div>
               <div className="text-[8px] text-[#6b6860]">{sin} · {focus}</div>
+              {brain.rlMethod && (
+                <div className="text-[6px] font-bold mt-0.5 px-1 py-0.5 rounded inline-block"
+                  style={{ background: color + '15', color: color + 'cc', border: `1px solid ${color}25` }}>
+                  {brain.rlMethod}
+                </div>
+              )}
             </div>
           </div>
           <div className="w-1.5 h-1.5 rounded-full animate-pulse mt-1" style={{ background: color }} />

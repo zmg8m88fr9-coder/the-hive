@@ -15,6 +15,9 @@ const PLAY_LABELS = {
   bear_flag: 'BEAR FLAG', scalp: 'SCALP', breakout: 'BREAKOUT',
   reversal: 'REVERSAL', mean_reversion: 'MEAN REV', gamma_squeeze: 'GAMMA SQZ',
   trend_follow: 'TREND', news_catalyst: 'NEWS', liquidity_sweep: 'LIQ SWEEP',
+  pairs_trade: 'PAIRS', stat_arb: 'STAT ARB', regime_switch: 'REGIME',
+  iv_crush: 'IV CRUSH', carry_trade: 'CARRY', stop_hunt: 'STOP HUNT',
+  portfolio_hedge: 'HEDGE', transfer_play: 'TRANSFER',
 };
 
 const PLAY_COLORS = {
@@ -22,6 +25,15 @@ const PLAY_COLORS = {
   bear_flag: '#ef4444', scalp: '#3b82f6', breakout: '#FFB81C',
   reversal: '#a855f7', mean_reversion: '#06b6d4', gamma_squeeze: '#f97316',
   trend_follow: '#22c55e', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
+  pairs_trade: '#0ea5e9', stat_arb: '#14b8a6', regime_switch: '#84cc16',
+  iv_crush: '#a855f7', carry_trade: '#22c55e', stop_hunt: '#3b82f6',
+  portfolio_hedge: '#6b7280', transfer_play: '#f59e0b',
+};
+
+const RL_METHOD_COLORS = {
+  'DQN': '#FFB81C', 'DDQN': '#f59e0b', 'PPO': '#22c55e', 'RRL': '#ef4444',
+  'Actor-Critic': '#a855f7', 'DDPG': '#a855f7', 'A2C': '#3b82f6',
+  'Q-Learning': '#06b6d4', 'SARSA': '#0ea5e9', 'Model-Based': '#84cc16',
 };
 
 function fmt(date) {
@@ -51,7 +63,7 @@ export default function TradeTable({ trades }) {
       <table className="w-full text-[8px] font-mono min-w-[700px]">
         <thead>
           <tr className="border-b border-[#1a1a1a]">
-            {['BRAIN', 'ASSET', 'CLASS', 'DIR', 'PLAY', 'ENTRY $', 'EXIT $', 'QTY', 'P&L $', 'P&L %', 'OPENED', 'CLOSED', 'HOLD', 'STATUS'].map(h => (
+            {['BRAIN', 'ASSET', 'CLASS', 'DIR', 'PLAY', 'RL METHOD', 'ENTRY $', 'EXIT $', 'QTY', 'P&L $', 'P&L %', 'OPENED', 'CLOSED', 'HOLD', 'STATUS'].map(h => (
               <th key={h} className="text-left py-2 px-2 text-[7px] text-[#3a3a3a] tracking-widest font-bold whitespace-nowrap">{h}</th>
             ))}
           </tr>
@@ -109,7 +121,17 @@ export default function TradeTable({ trades }) {
                   {trade.play_type ? (
                     <span className="px-1.5 py-0.5 rounded text-[7px] font-bold"
                       style={{ background: playColor + '18', color: playColor, border: `1px solid ${playColor}30` }}>
-                      {PLAY_LABELS[trade.play_type]}
+                      {PLAY_LABELS[trade.play_type] ?? trade.play_type}
+                    </span>
+                  ) : <span className="text-[#2a2a2a]">—</span>}
+                </td>
+
+                {/* RL Method */}
+                <td className="py-2 px-2 whitespace-nowrap">
+                  {trade.rl_method ? (
+                    <span className="px-1.5 py-0.5 rounded text-[7px] font-bold"
+                      style={{ background: (RL_METHOD_COLORS[trade.rl_method] ?? '#555') + '18', color: RL_METHOD_COLORS[trade.rl_method] ?? '#555', border: `1px solid ${RL_METHOD_COLORS[trade.rl_method] ?? '#555'}30` }}>
+                      {trade.rl_method}
                     </span>
                   ) : <span className="text-[#2a2a2a]">—</span>}
                 </td>
