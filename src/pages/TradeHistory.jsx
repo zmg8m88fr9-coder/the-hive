@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BRAINS } from '../lib/hiveData';
+import { calculateTotalUnrealizedPnL } from '../lib/realtimePnL';
 import TradeCard from '../components/hive/TradeCard';
 import TradeTable from '../components/hive/TradeTable';
 
@@ -12,6 +13,7 @@ export default function TradeHistory() {
   const [brainFilter, setBrainFilter] = useState("ALL");
   const [statusFilter, setStatusFilter] = useState("closed");
   const [viewMode, setViewMode] = useState("table"); // table | cards
+  const [unrealizedPnL, setUnrealizedPnL] = useState(0);
 
   const { data: trades = [], isLoading } = useQuery({
     queryKey: ['trades'],
@@ -28,6 +30,17 @@ export default function TradeHistory() {
   const closedTrades = trades.filter(t => t.status === "closed");
   const totalPnl = closedTrades.reduce((s, t) => s + (t.pnl ?? 0), 0);
 
+  // Real-time unrealized P&L update
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (openTrades.length > 0) {
+        setUnrealizedPnL(calculateTotalUnrealizedPnL(openTrades));
+      }
+    }, 500); // Update every 500ms
+    
+    return () => clearInterval(interval);
+  }, [openTrades]);
+
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
@@ -35,7 +48,7 @@ export default function TradeHistory() {
         <div className="flex items-center justify-between mb-3">
           <div>
             <h1 className="text-base font-black tracking-widest text-[#FFB81C]">TRADE HISTORY</h1>
-            <div className="text-[8px] text-[#6b6860]">{openTrades.length} open · {closedTrades.length} closed · ${totalPnl >= 0 ? "+" : ""}{totalPnl.toFixed(2)} realized P&L</div>
+            <div className="text-[8px] text-[#6b6860]">{openTrades.length} open · {closedTrades.length} closed · ${totalPnl >= 0 ? "+" : ""}{totalPnl.toFixed(2)} realized · ${unrealizedPnL >= 0 ? "+" : ""}{unrealizedPnL.toFixed(2)} unrealized</div>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
@@ -115,6 +128,14 @@ export default function TradeHistory() {
                 REALIZED P&L: {totalPnl >= 0 ? '+' : ''}${totalPnl.toFixed(2)}
               </span>
               <span className="text-[7px] text-[#3a3a3a]">·</span>
+              {openTrades.length > 0 && (
+                <>
+                  <span className="text-[7px] font-bold" style={{ color: unrealizedPnL >= 0 ? '#22c55e' : '#ef4444' }}>
+                    UNREALIZED: {unrealizedPnL >= 0 ? '+' : ''}${unrealizedPnL.toFixed(2)}
+                  </span>
+                  <span className="text-[7px] text-[#3a3a3a]">·</span>
+                </>
+              )}
               <span className="text-[7px] text-[#4a4a44]">{openTrades.length} OPEN · {closedTrades.length} CLOSED</span>
             </div>
             <TradeTable trades={filtered} />
