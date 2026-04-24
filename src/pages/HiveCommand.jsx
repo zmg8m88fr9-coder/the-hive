@@ -5,6 +5,7 @@ import SparkLine from '../components/hive/SparkLine';
 import BrainCard from '../components/hive/BrainCard';
 import PortfolioExposure from '../components/hive/PortfolioExposure';
 import StockHunter from '../components/hive/StockHunter';
+import AlphaWidget from '../components/hive/AlphaWidget';
 
 export default function HiveCommand() {
   const [signals, setSignals] = useState(() => generateSignals());
@@ -80,6 +81,9 @@ export default function HiveCommand() {
 
         {/* Stock Hunter */}
         <StockHunter />
+
+        {/* Alpha Widget */}
+        <AlphaWidget />
 
         {/* Live Signals */}
         <div>
