@@ -28,6 +28,24 @@
       "default": "open",
       "description": "Current status of the trade"
     },
+    "play_type": {
+      "type": "string",
+      "enum": [
+        "momentum",
+        "short_squeeze",
+        "bull_flag",
+        "bear_flag",
+        "scalp",
+        "breakout",
+        "reversal",
+        "mean_reversion",
+        "gamma_squeeze",
+        "trend_follow",
+        "news_catalyst",
+        "liquidity_sweep"
+      ],
+      "description": "The type of trade setup/play"
+    },
     "entry_price": {
       "type": "number",
       "description": "Price at which the trade was entered"

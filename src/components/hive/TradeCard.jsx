@@ -74,6 +74,21 @@ export default function TradeCard({ trade }) {
     ? holdMinutes >= 60 ? `${(holdMinutes / 60).toFixed(1)}h` : `${holdMinutes}m`
     : 'OPEN';
 
+  const PLAY_LABELS = {
+    momentum: 'MOMENTUM', short_squeeze: 'SHORT SQUEEZE', bull_flag: 'BULL FLAG',
+    bear_flag: 'BEAR FLAG', scalp: 'SCALP', breakout: 'BREAKOUT',
+    reversal: 'REVERSAL', mean_reversion: 'MEAN REVERT', gamma_squeeze: 'GAMMA SQZ',
+    trend_follow: 'TREND FOLLOW', news_catalyst: 'NEWS', liquidity_sweep: 'LIQ SWEEP',
+  };
+  const PLAY_COLORS = {
+    momentum: '#f59e0b', short_squeeze: '#ef4444', bull_flag: '#22c55e',
+    bear_flag: '#ef4444', scalp: '#3b82f6', breakout: '#FFB81C',
+    reversal: '#a855f7', mean_reversion: '#06b6d4', gamma_squeeze: '#f97316',
+    trend_follow: '#22c55e', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
+  };
+  const playLabel = trade.play_type ? PLAY_LABELS[trade.play_type] : null;
+  const playColor = trade.play_type ? PLAY_COLORS[trade.play_type] : null;
+
   const lastRsi = chartData[chartData.length - 1]?.rsi;
   const lastStoch = chartData[chartData.length - 1]?.stoch;
   const lastMacd = chartData[chartData.length - 1]?.macd;
@@ -96,6 +111,12 @@ export default function TradeCard({ trade }) {
               <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded ${isBuy ? 'bg-[#22c55e20] text-[#22c55e]' : 'bg-[#ef444420] text-[#ef4444]'}`}>
                 {isBuy ? '▲ BUY' : '▼ SHORT'}
               </span>
+              {playLabel && (
+                <span className="text-[7px] font-bold px-1.5 py-0.5 rounded"
+                  style={{ background: playColor + '18', color: playColor, border: `1px solid ${playColor}35` }}>
+                  {playLabel}
+                </span>
+              )}
               <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded ml-auto ${isOpen ? 'bg-[#22c55e15] text-[#22c55e]' : trade.status === 'cancelled' ? 'bg-[#ef444415] text-[#ef4444]' : 'bg-[#FFB81C15] text-[#FFB81C]'}`}>
                 {trade.status.toUpperCase()}
               </span>
@@ -160,6 +181,7 @@ export default function TradeCard({ trade }) {
               { label: 'HOLD TIME', value: holdLabel, color: color },
               { label: 'OPENED', value: trade.opened_at ? format(new Date(trade.opened_at), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
               { label: 'CLOSED', value: trade.closed_at ? format(new Date(trade.closed_at), 'MMM d, HH:mm') : '—', color: '#7a7a74' },
+              { label: 'PLAY TYPE', value: playLabel ?? '—', color: playColor ?? '#555' },
             ].map(s => (
               <div key={s.label} className="bg-[#111] rounded p-2">
                 <div className="text-[6px] text-[#3a3a3a] tracking-widest mb-0.5">{s.label}</div>
