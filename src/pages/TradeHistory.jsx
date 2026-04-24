@@ -10,7 +10,7 @@ const STATUS_FILTER = ["ALL", "open", "closed", "cancelled"];
 
 export default function TradeHistory() {
   const [brainFilter, setBrainFilter] = useState("ALL");
-  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("closed");
   const [viewMode, setViewMode] = useState("table"); // table | cards
 
   const { data: trades = [], isLoading } = useQuery({
