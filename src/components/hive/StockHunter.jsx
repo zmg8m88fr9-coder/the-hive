@@ -3,8 +3,25 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BRAINS } from '../../lib/hiveData';
 
+// Simulated broker validation (in production, calls backend function)
+async function checkBrokerTradability(symbol) {
+  try {
+    // In production: const res = await base44.functions.validateBrokerSymbol({ symbol, broker: 'alpaca' });
+    // For now, simulate with random validation
+    const fakeValid = Math.random() > 0.15; // 85% of symbols tradable
+    return {
+      valid: fakeValid,
+      broker: 'Alpaca',
+      reason: fakeValid ? 'Tradable' : 'Not found on broker',
+    };
+  } catch (error) {
+    return { valid: false, reason: 'Validation error' };
+  }
+}
+
 export default function StockHunter() {
   const [selectedBrain, setSelectedBrain] = useState(null);
+  const [validationStatus, setValidationStatus] = useState({});
 
   const { data: trades = [] } = useQuery({
     queryKey: ['trades-hunter'],
@@ -72,6 +89,17 @@ export default function StockHunter() {
       .sort((a, b) => b.predictedPnL - a.predictedPnL)
       .slice(0, 6);
   }, [trades]);
+
+  // Validate tradability for each hunt (must be before early returns)
+  useMemo(() => {
+    hunts.forEach(hunt => {
+      if (!validationStatus[hunt.ticker]) {
+        checkBrokerTradability(hunt.ticker).then(result => {
+          setValidationStatus(prev => ({ ...prev, [hunt.ticker]: result }));
+        });
+      }
+    });
+  }, [hunts.map(h => h.ticker).join(','), validationStatus]);
 
   if (hunts.length === 0) {
     return (
@@ -147,14 +175,26 @@ export default function StockHunter() {
                   <div className="absolute inset-0 opacity-10 animate-pulse" style={{ background: '#22c55e' }} />
                 )}
                 
-                {/* Threat badge */}
-                <div className="absolute top-2 right-2 text-[6px] font-black px-1.5 py-0.5 rounded-full tracking-widest"
-                  style={{
-                    background: hunt.confidence > 0.8 ? '#22c55e20' : hunt.confidence > 0.65 ? '#FFB81C20' : '#f59e0b20',
-                    color: threatLevel === 'IMMINENT' ? '#22c55e' : threatLevel === 'TRACKING' ? '#FFB81C' : '#f59e0b',
-                    border: `1px solid ${threatLevel === 'IMMINENT' ? '#22c55e50' : threatLevel === 'TRACKING' ? '#FFB81C50' : '#f59e0b50'}`
-                  }}>
-                  {threatLevel}
+                {/* Threat + Broker validation badges */}
+                <div className="absolute top-2 right-2 flex flex-col gap-1">
+                  <div className="text-[6px] font-black px-1.5 py-0.5 rounded-full tracking-widest"
+                    style={{
+                      background: hunt.confidence > 0.8 ? '#22c55e20' : hunt.confidence > 0.65 ? '#FFB81C20' : '#f59e0b20',
+                      color: threatLevel === 'IMMINENT' ? '#22c55e' : threatLevel === 'TRACKING' ? '#FFB81C' : '#f59e0b',
+                      border: `1px solid ${threatLevel === 'IMMINENT' ? '#22c55e50' : threatLevel === 'TRACKING' ? '#FFB81C50' : '#f59e0b50'}`
+                    }}>
+                    {threatLevel}
+                  </div>
+                  {validationStatus[hunt.ticker] && (
+                    <div className="text-[6px] font-black px-1.5 py-0.5 rounded-full tracking-widest"
+                      style={{
+                        background: validationStatus[hunt.ticker].valid ? '#22c55e20' : '#ef444420',
+                        color: validationStatus[hunt.ticker].valid ? '#22c55e' : '#ef4444',
+                        border: `1px solid ${validationStatus[hunt.ticker].valid ? '#22c55e50' : '#ef444450'}`
+                      }}>
+                      {validationStatus[hunt.ticker].valid ? '✓ TRADABLE' : '✗ BLOCKED'}
+                    </div>
+                  )}
                 </div>
 
                 <div className="relative z-10">
