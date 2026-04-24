@@ -34,9 +34,9 @@ export default function BrainDetail() {
   const spark = generateSpark(30, pnlPct > 0 ? 1 : -1);
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto pb-20">
+    <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-12 pb-3">
+      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
         <div className="flex items-center gap-3">
           <Link to="/brains">
             <span className="text-[#6b6860] text-sm">←</span>
@@ -58,7 +58,7 @@ export default function BrainDetail() {
         </div>
       </div>
 
-      <div className="px-4 pt-3 space-y-3">
+      <div className="px-4 pt-3 pb-6 space-y-3">
         {/* Performance Card */}
         <div className="bg-[#0d0d0d] border rounded-xl p-4" style={{ borderColor: color + "40" }}>
           <div className="mono text-2xl font-black mb-1" style={{ color }}>

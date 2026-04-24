@@ -5,14 +5,14 @@ export default function BrainGrid() {
   const sortedBrains = [...BRAINS].sort((a, b) => b.totalPnl - a.totalPnl);
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto pb-20">
+    <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-12 pb-3">
+      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
         <h1 className="text-base font-black tracking-widest text-[#FFB81C]">BRAIN GRID</h1>
         <div className="text-[8px] text-[#6b6860]">6 Market Specialists · No Copy Trading · Cross-Market Intel</div>
       </div>
 
-      <div className="px-4 pt-4 space-y-4">
+      <div className="px-4 pt-4 pb-6 space-y-4">
         {/* Leaderboard */}
         <div className="bg-[#0d0d0d] border border-[#FFB81C20] rounded-xl p-3">
           <div className="text-[9px] text-[#6b6860] tracking-widest mb-3">RANKED BY P&L</div>

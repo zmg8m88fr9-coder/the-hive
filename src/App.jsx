@@ -39,7 +39,7 @@ const AuthenticatedApp = () => {
 
   return (
     <div className="fixed inset-0 bg-[#0a0a0a] text-[#d4d0c8] flex flex-col" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-      <main className="flex-1 overflow-hidden">
+      <main className="flex-1 overflow-y-auto">
         <Routes>
           <Route path="/" element={<HiveCommand />} />
           <Route path="/brains" element={<BrainGrid />} />
@@ -51,6 +51,7 @@ const AuthenticatedApp = () => {
         </Routes>
       </main>
       <BottomNav />
+
     </div>
   );
 };

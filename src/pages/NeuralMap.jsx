@@ -55,9 +55,9 @@ export default function NeuralMap() {
   const myBonds = brain ? BONDS.filter(b => b.from === brain.id || b.to === brain.id) : [];
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto pb-20">
+    <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-12 pb-3">
+      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-base font-black tracking-widest text-[#FFB81C]">NEURAL MAP</h1>
@@ -70,7 +70,7 @@ export default function NeuralMap() {
         </div>
       </div>
 
-      <div className="px-4 pt-3 space-y-3">
+      <div className="px-4 pt-3 pb-6 space-y-3">
         {/* SVG Map */}
         <div ref={containerRef} className="w-full bg-[#030303] border border-[#111] rounded-xl overflow-hidden" style={{ height: 280 }}>
           <svg width="100%" height="100%">

@@ -25,9 +25,9 @@ export default function HiveCommand() {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto pb-20">
+    <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-12 pb-3">
+      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
@@ -46,7 +46,7 @@ export default function HiveCommand() {
         </div>
       </div>
 
-      <div className="px-4 pt-4 space-y-4">
+      <div className="px-4 pt-4 pb-6 space-y-4">
         {/* Hive Balance */}
         <div className="bg-[#0d0d0d] border border-[#FFB81C20] rounded-xl p-4">
           <div className="text-[8px] text-[#6b6860] tracking-widest mb-1">HIVE BALANCE</div>

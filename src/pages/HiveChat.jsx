@@ -89,9 +89,9 @@ export default function HiveChat() {
   const suggestions = SUGGESTIONS[activeId] ?? [];
 
   return (
-    <div className="flex flex-col h-full" style={{ height: '100dvh' }}>
+    <div className="flex flex-col" style={{ height: 'calc(100dvh - 56px)' }}>
       {/* Brain selector — horizontal scroll */}
-      <div className="flex-shrink-0 bg-[#0a0a0a] border-b border-[#1a1a1a] pt-12">
+      <div className="flex-shrink-0 bg-[#0a0a0a] border-b border-[#1a1a1a] pt-3">
         <div className="flex overflow-x-auto pb-2 px-3 gap-2 no-scrollbar">
           {ENTITIES.map(e => {
             const active = e.id === activeId;
@@ -193,7 +193,7 @@ export default function HiveChat() {
 
       {/* Input */}
       <div className="flex-shrink-0 border-t border-[#151515] bg-[#090909] px-3 py-2"
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 72px)' }}>
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div className="flex items-end gap-2">
           <div className="flex-1 flex items-center gap-2 rounded-xl border px-3 py-2 min-h-[40px]"
             style={{ background: "#0e0e0e", borderColor: input ? cfg.color + "45" : "#1a1a1a" }}>
