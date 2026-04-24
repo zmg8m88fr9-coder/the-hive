@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BRAINS } from '../lib/hiveData';
 import TradeCard from '../components/hive/TradeCard';
+import TradeTable from '../components/hive/TradeTable';
 
 const BRAIN_FILTER = ["ALL", "THE_BRAIN", "APEX", "VENOM", "ORACLE", "GHOST", "TITAN"];
 const STATUS_FILTER = ["ALL", "open", "closed", "cancelled"];
@@ -10,6 +11,7 @@ const STATUS_FILTER = ["ALL", "open", "closed", "cancelled"];
 export default function TradeHistory() {
   const [brainFilter, setBrainFilter] = useState("ALL");
   const [statusFilter, setStatusFilter] = useState("ALL");
+  const [viewMode, setViewMode] = useState("table"); // table | cards
 
   const { data: trades = [], isLoading } = useQuery({
     queryKey: ['trades'],
@@ -59,6 +61,19 @@ export default function TradeHistory() {
           })}
         </div>
 
+        {/* View Mode Toggle */}
+        <div className="flex gap-1.5 mb-2">
+          {[{ id: 'table', label: '⊟ TABLE' }, { id: 'cards', label: '⊞ CARDS' }].map(v => (
+            <button key={v.id} onClick={() => setViewMode(v.id)}
+              className="px-3 py-1 rounded text-[8px] font-bold tracking-widest transition-all"
+              style={viewMode === v.id
+                ? { background: '#FFB81C20', border: '1px solid #FFB81C50', color: '#FFB81C' }
+                : { background: 'transparent', border: '1px solid #1a1a1a', color: '#444' }}>
+              {v.label}
+            </button>
+          ))}
+        </div>
+
         {/* Status Filter */}
         <div className="flex gap-1.5">
           {STATUS_FILTER.map(s => {
@@ -77,7 +92,7 @@ export default function TradeHistory() {
         </div>
       </div>
 
-      <div className="px-4 pt-3 pb-6 space-y-2">
+      <div className="pt-3 pb-6">
         {isLoading && (
           <div className="text-center py-12 text-[#6b6860] text-[10px] tracking-widest">LOADING TRADES...</div>
         )}
@@ -90,9 +105,29 @@ export default function TradeHistory() {
           </div>
         )}
 
-        {filtered.map(trade => (
-          <TradeCard key={trade.id} trade={trade} />
-        ))}
+        {!isLoading && filtered.length > 0 && viewMode === 'table' && (
+          <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl overflow-hidden mx-4">
+            {/* Summary row */}
+            <div className="flex items-center gap-4 px-4 py-2.5 border-b border-[#1a1a1a] bg-[#090909]">
+              <span className="text-[7px] text-[#3a3a3a] tracking-widest">{filtered.length} TRADES</span>
+              <span className="text-[7px] text-[#3a3a3a]">·</span>
+              <span className="text-[7px] font-bold" style={{ color: totalPnl >= 0 ? '#22c55e' : '#ef4444' }}>
+                REALIZED P&L: {totalPnl >= 0 ? '+' : ''}${totalPnl.toFixed(2)}
+              </span>
+              <span className="text-[7px] text-[#3a3a3a]">·</span>
+              <span className="text-[7px] text-[#4a4a44]">{openTrades.length} OPEN · {closedTrades.length} CLOSED</span>
+            </div>
+            <TradeTable trades={filtered} />
+          </div>
+        )}
+
+        {!isLoading && filtered.length > 0 && viewMode === 'cards' && (
+          <div className="px-4 space-y-2">
+            {filtered.map(trade => (
+              <TradeCard key={trade.id} trade={trade} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
