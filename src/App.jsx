@@ -20,6 +20,7 @@ import AlgorithmDashboard from './pages/AlgorithmDashboard';
 import AlgorithmLibrary from './pages/AlgorithmLibrary';
 import CorrelationMap from './pages/CorrelationMap';
 import BrainHeatmap from './pages/BrainHeatmap';
+import BenchmarkComparison from './pages/BenchmarkComparison';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
           <Route path="/library" element={<AlgorithmLibrary />} />
           <Route path="/correlations" element={<CorrelationMap />} />
           <Route path="/heatmap" element={<BrainHeatmap />} />
+          <Route path="/alpha" element={<BenchmarkComparison />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
