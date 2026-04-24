@@ -1,0 +1,73 @@
+{
+  "name": "Trade",
+  "type": "object",
+  "properties": {
+    "brain_id": {
+      "type": "string",
+      "description": "ID of the brain that made the trade (e.g. THE_BRAIN, APEX)"
+    },
+    "ticker": {
+      "type": "string",
+      "description": "Trading symbol (e.g. NVDA, BTC, EURUSD)"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SHORT"
+      ],
+      "description": "Direction of the trade"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "closed",
+        "cancelled"
+      ],
+      "default": "open",
+      "description": "Current status of the trade"
+    },
+    "entry_price": {
+      "type": "number",
+      "description": "Price at which the trade was entered"
+    },
+    "exit_price": {
+      "type": "number",
+      "description": "Price at which the trade was closed (null if still open)"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Number of units/shares/contracts"
+    },
+    "pnl": {
+      "type": "number",
+      "description": "Profit or loss in dollars (null if still open)"
+    },
+    "pnl_pct": {
+      "type": "number",
+      "description": "Profit or loss percentage (null if still open)"
+    },
+    "reasoning": {
+      "type": "string",
+      "description": "Brain's reasoning for the trade"
+    },
+    "opened_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the trade was opened"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the trade was closed (null if open)"
+    }
+  },
+  "required": [
+    "brain_id",
+    "ticker",
+    "action",
+    "status",
+    "entry_price"
+  ]
+}

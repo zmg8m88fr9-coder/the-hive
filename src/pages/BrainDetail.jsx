@@ -1,11 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
 import { BRAINS, generateSpark } from '../lib/hiveData';
 import SparkLine from '../components/hive/SparkLine';
+import { format } from 'date-fns';
 
 const TABS = [
   { id: "soul", label: "SOUL" },
-  { id: "brotherhood", label: "BROTHERHOOD" },
+  { id: "trades", label: "TRADES" },
   { id: "weakness", label: "WEAKNESS" },
   { id: "data", label: "DATA" },
 ];
@@ -14,6 +17,11 @@ export default function BrainDetail() {
   const { id } = useParams();
   const [tab, setTab] = useState("soul");
   const brain = BRAINS.find(b => b.id === id);
+
+  const { data: trades = [] } = useQuery({
+    queryKey: ['trades', id],
+    queryFn: () => base44.entities.Trade.filter({ brain_id: id }, '-opened_at', 50),
+  });
 
   const seed = id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
   const spark = useMemo(() => {
@@ -175,24 +183,63 @@ export default function BrainDetail() {
           </div>
         )}
 
-        {/* BROTHERHOOD Tab */}
-        {tab === "brotherhood" && (
-          <div className="space-y-3 pb-2">
-            <div className="text-[9px] text-[#7a7a74] leading-relaxed border-l-2 pl-3" style={{ borderColor: color }}>
-              {name} operates as part of the 6-brain hive. Each brain feeds intelligence to the others based on their market specialty.
+        {/* TRADES Tab */}
+        {tab === "trades" && (
+          <div className="space-y-2 pb-2">
+            {/* Summary */}
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { label: "OPEN", value: trades.filter(t => t.status === "open").length, color: "#22c55e" },
+                { label: "CLOSED", value: trades.filter(t => t.status === "closed").length, color: "#FFB81C" },
+                { label: "REALIZED P&L", value: `${trades.filter(t=>t.status==="closed").reduce((s,t)=>s+(t.pnl??0),0) >= 0 ? "+" : ""}$${trades.filter(t=>t.status==="closed").reduce((s,t)=>s+(t.pnl??0),0).toFixed(2)}`, color: trades.filter(t=>t.status==="closed").reduce((s,t)=>s+(t.pnl??0),0) >= 0 ? "#22c55e" : "#ef4444" },
+              ].map(s => (
+                <div key={s.label} className="bg-[#111] rounded p-2 text-center">
+                  <div className="mono text-sm font-black" style={{ color: s.color }}>{s.value}</div>
+                  <div className="text-[6px] text-[#3a3a3a] tracking-widest">{s.label}</div>
+                </div>
+              ))}
             </div>
-            <div>
-              <div className="text-[8px] tracking-widest mb-2" style={{ color: color + "80" }}>ALONE MODE</div>
-              <div className="bg-[#111] rounded p-3 text-[8px] text-[#6a6a64] leading-relaxed">
-                {name} runs independently when the hive goes quiet, operating purely from {focus.toLowerCase()} market signals.
+
+            {trades.length === 0 && (
+              <div className="text-center py-10">
+                <div className="text-xl mb-2 opacity-20">◎</div>
+                <div className="text-[9px] text-[#333] tracking-widest">NO TRADES YET</div>
               </div>
-            </div>
-            <div>
-              <div className="text-[8px] tracking-widest mb-2" style={{ color: color + "80" }}>TOGETHER MODE</div>
-              <div className="bg-[#111] rounded p-3 text-[8px] text-[#6a6a64] leading-relaxed">
-                When all 6 brains are active, {name} feeds {focus.toLowerCase()} intelligence to others, forming a cross-market awareness network.
-              </div>
-            </div>
+            )}
+
+            {trades.map(trade => {
+              const isBuy = trade.action === "BUY";
+              const isOpen = trade.status === "open";
+              const pnlColor = (trade.pnl ?? 0) >= 0 ? "#22c55e" : "#ef4444";
+              return (
+                <div key={trade.id} className="bg-[#111] border rounded-lg p-3"
+                  style={{ borderColor: isOpen ? color + "30" : "#1a1a1a" }}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="mono font-black text-xs text-[#d4d0c8]">{trade.ticker}</span>
+                    <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded ${isBuy ? "bg-[#22c55e20] text-[#22c55e]" : "bg-[#ef444420] text-[#ef4444]"}`}>
+                      {isBuy ? "▲ BUY" : "▼ SHORT"}
+                    </span>
+                    <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded ml-auto ${isOpen ? "text-[#22c55e]" : trade.status === "cancelled" ? "text-[#ef4444]" : "text-[#FFB81C]"}`}>
+                      {trade.status.toUpperCase()}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[7px] text-[#4a4a44]">ENTRY <span className="font-mono text-[#7a7a74]">${trade.entry_price?.toFixed(4)}</span></span>
+                    {trade.exit_price != null && (
+                      <span className="text-[7px] text-[#4a4a44]">EXIT <span className="font-mono text-[#7a7a74]">${trade.exit_price?.toFixed(4)}</span></span>
+                    )}
+                    {trade.pnl != null && (
+                      <span className="text-[7px] font-bold mono ml-auto" style={{ color: pnlColor }}>
+                        {trade.pnl >= 0 ? "+" : ""}${trade.pnl.toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+                  {trade.opened_at && (
+                    <div className="text-[6px] text-[#2a2a2a] mt-1">{format(new Date(trade.opened_at), 'MMM d, HH:mm')}</div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

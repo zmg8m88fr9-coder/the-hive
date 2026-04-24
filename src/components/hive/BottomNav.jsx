@@ -4,8 +4,8 @@ const NAV = [
   { path: "/",           icon: "⬡", label: "HIVE"    },
   { path: "/brains",     icon: "◈", label: "BRAINS"  },
   { path: "/signals",    icon: "◎", label: "SIGNALS" },
+  { path: "/trades",     icon: "⊞", label: "TRADES"  },
   { path: "/perf",       icon: "▲", label: "PERF"    },
-  { path: "/neural",     icon: "🧠", label: "NEURAL"  },
   { path: "/chat",       icon: "⦿", label: "CHAT"    },
 ];
 
