@@ -1,39 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════
+   THE HIVE — DESIGN SYSTEM
+   Dark intelligence. Six sins. One hive.
+═══════════════════════════════════════════════════════ */
+
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 40 10% 83%;
-    --card: 0 0% 6%;
-    --card-foreground: 40 10% 83%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 40 10% 83%;
-    --primary: 41 100% 55%;
+    /* ── Surface Scale ── */
+    --hive-void:        #060608;
+    --hive-base:        #0a0a0d;
+    --hive-surface-1:   #0d0d11;
+    --hive-surface-2:   #111116;
+    --hive-surface-3:   #16161c;
+    --hive-surface-4:   #1c1c24;
+
+    /* ── Border Scale ── */
+    --hive-border-0:    #111116;
+    --hive-border-1:    #1a1a22;
+    --hive-border-2:    #242430;
+    --hive-border-3:    #2e2e3e;
+
+    /* ── Text Scale ── */
+    --hive-text-0:      #f0ece0;
+    --hive-text-1:      #d4d0c4;
+    --hive-text-2:      #8a8678;
+    --hive-text-3:      #565248;
+    --hive-text-4:      #323028;
+
+    /* ── Gold / Amber — The Hive accent ── */
+    --hive-gold:        #FFB81C;
+    --hive-gold-dim:    #FFB81C60;
+    --hive-gold-ghost:  #FFB81C18;
+    --hive-gold-glow:   #FFB81C40;
+
+    /* ── Status ── */
+    --hive-green:       #22c55e;
+    --hive-green-dim:   #22c55e30;
+    --hive-red:         #ef4444;
+    --hive-red-dim:     #ef444430;
+    --hive-blue:        #3b82f6;
+    --hive-purple:      #a855f7;
+    --hive-orange:      #f59e0b;
+
+    /* ── Sin Colors ── */
+    --sin-pride:        #FFB81C;   /* THE BRAIN  */
+    --sin-lust:         #ef4444;   /* APEX       */
+    --sin-envy:         #a855f7;   /* VENOM      */
+    --sin-greed:        #22c55e;   /* ORACLE     */
+    --sin-sloth:        #3b82f6;   /* GHOST      */
+    --sin-wrath:        #f59e0b;   /* TITAN      */
+
+    /* ── Shadcn token mapping ── */
+    --background:       0 0% 4%;
+    --foreground:       40 10% 82%;
+    --card:             240 5% 6%;
+    --card-foreground:  40 10% 82%;
+    --popover:          240 5% 6%;
+    --popover-foreground: 40 10% 82%;
+    --primary:          41 100% 55%;
     --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 40 10% 83%;
-    --muted: 0 0% 10%;
+    --secondary:        240 5% 9%;
+    --secondary-foreground: 40 10% 82%;
+    --muted:            240 5% 9%;
     --muted-foreground: 0 0% 42%;
-    --accent: 41 100% 55%;
+    --accent:           41 100% 55%;
     --accent-foreground: 0 0% 5%;
-    --destructive: 0 85% 60%;
+    --destructive:      0 85% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 10%;
-    --input: 0 0% 10%;
-    --ring: 41 100% 55%;
-    --radius: 0.375rem;
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 40 10% 83%;
-    --sidebar-primary: 41 100% 55%;
+    --border:           240 5% 10%;
+    --input:            240 5% 9%;
+    --ring:             41 100% 55%;
+    --radius:           0.375rem;
+    --sidebar-background:         0 0% 4%;
+    --sidebar-foreground:         40 10% 82%;
+    --sidebar-primary:            41 100% 55%;
     --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 40 10% 83%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 41 100% 55%;
+    --sidebar-accent:             240 5% 9%;
+    --sidebar-accent-foreground:  40 10% 82%;
+    --sidebar-border:             240 5% 10%;
+    --sidebar-ring:               41 100% 55%;
   }
 }
 
@@ -43,27 +93,377 @@
     box-sizing: border-box;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    background: #0a0a0a;
-    color: #d4d0c8;
+    background: var(--hive-void);
+    color: var(--hive-text-1);
     font-family: 'JetBrains Mono', monospace;
     margin: 0;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
+/* ═══════════════════════════════════════════════════════
+   SCROLLBARS
+═══════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar         { width: 3px; height: 3px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: var(--hive-border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--hive-gold-dim); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ═══════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+═══════════════════════════════════════════════════════ */
+
 .mono { font-family: 'JetBrains Mono', monospace; }
 
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #FFB81C40; }
+/* Label / tracking patterns */
+.hive-label {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hive-text-3);
+}
+
+.hive-sublabel {
+  font-size: 6px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hive-text-4);
+}
+
+.hive-section-title {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hive-text-2);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SURFACE COMPONENTS
+═══════════════════════════════════════════════════════ */
+
+.hive-card {
+  background: var(--hive-surface-1);
+  border: 1px solid var(--hive-border-1);
+  border-radius: 12px;
+}
+
+.hive-card-sm {
+  background: var(--hive-surface-2);
+  border: 1px solid var(--hive-border-1);
+  border-radius: 8px;
+}
+
+.hive-card-inner {
+  background: var(--hive-surface-2);
+  border-radius: 6px;
+}
+
+/* Gold border glow variant */
+.hive-card-gold {
+  background: var(--hive-surface-1);
+  border: 1px solid var(--hive-gold-ghost);
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--hive-gold-ghost), inset 0 1px 0 rgba(255,184,28,0.04);
+}
+
+/* ═══════════════════════════════════════════════════════
+   BADGE / PILL COMPONENTS
+═══════════════════════════════════════════════════════ */
+
+.hive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hive-badge-buy {
+  background: var(--hive-green-dim);
+  color: var(--hive-green);
+}
+
+.hive-badge-sell {
+  background: var(--hive-red-dim);
+  color: var(--hive-red);
+}
+
+.hive-badge-gold {
+  background: var(--hive-gold-ghost);
+  color: var(--hive-gold);
+  border: 1px solid var(--hive-gold-glow);
+}
+
+.hive-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--hive-border-2);
+  color: var(--hive-text-3);
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+.hive-pill-active {
+  background: var(--hive-gold-ghost);
+  border-color: var(--hive-gold-glow);
+  color: var(--hive-gold);
+}
+
+/* ═══════════════════════════════════════════════════════
+   LIVE INDICATOR
+═══════════════════════════════════════════════════════ */
+
+.hive-live {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hive-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--hive-green);
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+}
+
+.hive-live-text {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--hive-green);
+}
+
+/* ═══════════════════════════════════════════════════════
+   STAT BLOCKS
+═══════════════════════════════════════════════════════ */
+
+.hive-stat-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.hive-stat-cell {
+  background: var(--hive-surface-2);
+  border: 1px solid var(--hive-border-1);
+  border-radius: 6px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.hive-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--hive-text-0);
+}
+
+.hive-stat-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--hive-text-3);
+  margin-top: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TAB BAR
+═══════════════════════════════════════════════════════ */
+
+.hive-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--hive-border-1);
+}
+
+.hive-tab {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 1.5px solid transparent;
+  color: var(--hive-text-3);
+  background: transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.hive-tab-active {
+  color: var(--hive-gold);
+  background: var(--hive-gold-ghost);
+  border-bottom-color: var(--hive-gold);
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════ */
+
+/* Amber pulse (used on active signals) */
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--hive-gold-glow); }
+  50%       { opacity: 0.6; box-shadow: 0 0 14px var(--hive-gold); }
+}
+.pulse-amber { animation: pulse-amber 2.4s ease-in-out infinite; }
+
+/* Data stream — horizontal scan */
+@keyframes scan-h {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+/* Flicker — subtle text shimmer */
+@keyframes flicker {
+  0%, 92%, 100% { opacity: 1; }
+  94%            { opacity: 0.7; }
+  96%            { opacity: 1; }
+  98%            { opacity: 0.85; }
+}
+.hive-flicker { animation: flicker 8s ease-in-out infinite; }
+
+/* Neural pulse — for icons / nodes */
+@keyframes neural-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+.neural-pulse { animation: neural-pulse 3s ease-in-out infinite; }
+
+/* Fade-up entry */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.3s ease forwards; }
+
+/* Spin (loading) */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-slow { animation: spin-slow 2s linear infinite; }
+
+/* ═══════════════════════════════════════════════════════
+   BOTTOM NAV DRAWER
+═══════════════════════════════════════════════════════ */
+
+.hive-nav-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 6, 8, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 48;
+  animation: fade-in 0.2s ease;
+}
+
+.hive-nav-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--hive-surface-1);
+  border-top: 1px solid var(--hive-border-2);
+  border-radius: 16px 16px 0 0;
+  z-index: 49;
+  animation: slide-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   BACKGROUND TEXTURE — Neural grid
+═══════════════════════════════════════════════════════ */
+
+.hive-bg-neural {
+  background-image:
+    linear-gradient(rgba(255,184,28,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,184,28,0.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scanline effect (subtle, over cards) */
+.hive-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.12) 2px,
+    rgba(0,0,0,0.12) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILITY SHORTCUTS
+═══════════════════════════════════════════════════════ */
 
 .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-@keyframes pulse-amber {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px #FFB81C80; }
-  50% { opacity: 0.6; box-shadow: 0 0 12px #FFB81C; }
+/* ═══════════════════════════════════════════════════════
+   SIN GLYPH WATERMARK
+   Usage: wrap in position:relative, add child .sin-watermark
+═══════════════════════════════════════════════════════ */
+
+.sin-watermark {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 52px;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0.045;
+  user-select: none;
 }
-.pulse-amber { animation: pulse-amber 2s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════════════════
+   SELECTION
+═══════════════════════════════════════════════════════ */
+
+::selection {
+  background: var(--hive-gold-ghost);
+  color: var(--hive-gold);
+}

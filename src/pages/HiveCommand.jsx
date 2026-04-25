@@ -1,121 +1,194 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BRAINS, HIVE_STATS, generateSignals, generateSpark } from '../lib/hiveData';
-import SparkLine from '../components/hive/SparkLine';
+import { BRAINS, HIVE_STATS, generateSignals } from '../lib/hiveData';
 import BrainCard from '../components/hive/BrainCard';
 import PortfolioExposure from '../components/hive/PortfolioExposure';
 import StockHunter from '../components/hive/StockHunter';
 import AlphaWidget from '../components/hive/AlphaWidget';
 
+/* Section heading row */
+function SectionHead({ label, linkTo, linkLabel = 'VIEW ALL →' }) {
+  return (
+    <div className="flex items-center justify-between mb-2">
+      <span className="hive-section-title">{label}</span>
+      {linkTo && (
+        <Link to={linkTo}>
+          <span className="text-[8px] font-bold tracking-widest" style={{ color: 'var(--hive-gold)' }}>
+            {linkLabel}
+          </span>
+        </Link>
+      )}
+    </div>
+  );
+}
+
 export default function HiveCommand() {
   const [signals, setSignals] = useState(() => generateSignals());
-  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     const iv = setInterval(() => {
-      setTick(t => t + 1);
       if (Math.random() > 0.7) setSignals(generateSignals());
     }, 3000);
     return () => clearInterval(iv);
   }, []);
 
-  const pnlPct = (HIVE_STATS.totalPnl / (BRAINS.length * 500)) * 100;
+  const pnlPct = BRAINS.length * 500 > 0
+    ? (HIVE_STATS.totalPnl / (BRAINS.length * 500)) * 100
+    : 0;
   const latestSignals = signals.slice(0, 4);
-
-  const BRAIN_COLORS = {
-    THE_BRAIN: "#FFB81C", APEX: "#ef4444", VENOM: "#a855f7",
-    ORACLE: "#22c55e", GHOST: "#3b82f6", TITAN: "#f59e0b",
-  };
 
   return (
     <div className="flex flex-col min-h-full">
-      {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
+
+      {/* ── Sticky header ── */}
+      <div
+        className="sticky top-0 z-10 px-4 pt-4 pb-3"
+        style={{ background: 'var(--hive-base)', borderBottom: '1px solid var(--hive-border-1)' }}
+      >
         <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded flex items-center justify-center text-[9px] font-black text-black"
-                style={{ background: "linear-gradient(135deg, #FFB81C, #ef4444, #a855f7, #22c55e, #3b82f6, #f59e0b)" }}>
+            {/* Brand mark */}
+            <div className="flex items-center gap-2.5">
+              <div
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-black text-black flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(135deg, #FFB81C 0%, #ef4444 35%, #a855f7 55%, #22c55e 70%, #3b82f6 85%, #f59e0b 100%)',
+                  boxShadow: '0 0 10px rgba(255,184,28,0.3)',
+                }}
+              >
                 H
               </div>
-              <span className="text-sm font-black tracking-widest text-[#FFB81C]">THE HIVE</span>
+              <div>
+                <div
+                  className="text-sm font-black tracking-widest leading-none"
+                  style={{ color: 'var(--hive-gold)' }}
+                >
+                  THE HIVE
+                </div>
+                <div className="hive-sublabel mt-0.5" style={{ color: 'var(--hive-text-3)' }}>
+                  6 MARKETS · NEURAL WEB
+                </div>
+              </div>
             </div>
-            <div className="text-[8px] text-[#6b6860]">6 Markets · Neural Web · $3K→$600K</div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-            <span className="text-[8px] text-[#22c55e] font-bold tracking-widest">LIVE</span>
+
+          {/* Live indicator */}
+          <div className="hive-live">
+            <div className="hive-live-dot" />
+            <span className="hive-live-text">LIVE</span>
           </div>
         </div>
       </div>
 
-      <div className="px-4 pt-4 pb-6 space-y-4">
-        {/* Hive Balance */}
-        <div className="bg-[#0d0d0d] border border-[#FFB81C20] rounded-xl p-4">
-          <div className="text-[8px] text-[#6b6860] tracking-widest mb-1">HIVE BALANCE</div>
-          <div className="mono text-2xl font-black text-[#FFB81C]">
-            ${HIVE_STATS.totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </div>
-          <div className={`mono text-xs font-bold ${HIVE_STATS.totalPnl >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-            {HIVE_STATS.totalPnl >= 0 ? "+" : ""}${HIVE_STATS.totalPnl.toFixed(2)} ({pnlPct >= 0 ? "+" : ""}{pnlPct.toFixed(1)}%)
-          </div>
-          <div className="text-[8px] text-[#6b6860] mt-0.5">{HIVE_STATS.totalTrades} total trades · 6 specialists active</div>
+      <div className="px-4 pt-4 pb-6 space-y-5">
 
-          {/* Mini hive stats */}
-          <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-[#1a1a1a]">
-            {[
-              { label: "BALANCE", value: `$${(HIVE_STATS.totalBalance).toFixed(0)}`, color: "#FFB81C" },
-              { label: "TOTAL P&L", value: `+$${HIVE_STATS.totalPnl.toFixed(0)}`, color: "#22c55e" },
-              { label: "TRADES", value: HIVE_STATS.totalTrades, color: "#d4d0c8" },
-            ].map(s => (
-              <div key={s.label} className="text-center">
-                <div className="mono text-sm font-black" style={{ color: s.color }}>{s.value}</div>
-                <div className="text-[7px] text-[#4a4a44]">{s.label}</div>
-              </div>
-            ))}
+        {/* ── Hive Balance card ── */}
+        <div
+          className="rounded-xl p-4 relative overflow-hidden"
+          style={{
+            background: 'var(--hive-surface-1)',
+            border: '1px solid var(--hive-gold-ghost)',
+            boxShadow: '0 0 0 1px var(--hive-gold-ghost), inset 0 1px 0 rgba(255,184,28,0.04)',
+          }}
+        >
+          {/* Subtle watermark */}
+          <div
+            className="absolute bottom-2 right-3 text-[80px] leading-none pointer-events-none select-none"
+            style={{ color: 'var(--hive-gold)', opacity: 0.03 }}
+          >
+            ⬡
+          </div>
+
+          <div className="relative">
+            <div className="hive-label mb-1" style={{ color: 'var(--hive-text-3)' }}>HIVE BALANCE</div>
+            <div
+              className="mono text-3xl font-black leading-tight"
+              style={{ color: 'var(--hive-gold)' }}
+            >
+              ${HIVE_STATS.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <div
+              className="mono text-xs font-bold mt-0.5"
+              style={{ color: HIVE_STATS.totalPnl >= 0 ? 'var(--hive-green)' : 'var(--hive-red)' }}
+            >
+              {HIVE_STATS.totalPnl >= 0 ? '+' : ''}${HIVE_STATS.totalPnl.toFixed(2)}
+              <span className="ml-1.5 opacity-70">
+                ({pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(1)}%)
+              </span>
+            </div>
+            <div className="hive-sublabel mt-1" style={{ color: 'var(--hive-text-3)' }}>
+              {HIVE_STATS.totalTrades} total trades · 6 specialists active
+            </div>
+
+            {/* Mini stats */}
+            <div
+              className="grid grid-cols-3 gap-2 mt-3 pt-3"
+              style={{ borderTop: '1px solid var(--hive-border-1)' }}
+            >
+              {[
+                { label: 'BALANCE', value: `$${HIVE_STATS.totalBalance.toFixed(0)}`, color: 'var(--hive-gold)' },
+                { label: 'TOTAL P&L', value: `+$${HIVE_STATS.totalPnl.toFixed(0)}`, color: 'var(--hive-green)' },
+                { label: 'TRADES', value: HIVE_STATS.totalTrades, color: 'var(--hive-text-1)' },
+              ].map(s => (
+                <div key={s.label} className="text-center">
+                  <div className="mono text-sm font-black" style={{ color: s.color }}>{s.value}</div>
+                  <div className="hive-sublabel">{s.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Portfolio Exposure */}
+        {/* ── Portfolio Exposure ── */}
         <PortfolioExposure />
 
-        {/* Stock Hunter */}
+        {/* ── Stock Hunter ── */}
         <StockHunter />
 
-        {/* Alpha Widget */}
+        {/* ── Alpha Widget ── */}
         <AlphaWidget />
 
-        {/* Live Signals */}
+        {/* ── Live Signals ── */}
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-[9px] font-bold tracking-widest text-[#6b6860]">LIVE SIGNALS</div>
-            <Link to="/signals">
-              <span className="text-[8px] text-[#FFB81C]">VIEW ALL →</span>
-            </Link>
-          </div>
+          <SectionHead label="LIVE SIGNALS" linkTo="/signals" />
           <div className="space-y-2">
             {latestSignals.map(sig => {
               const brain = BRAINS.find(b => b.id === sig.brainId);
-              const color = brain?.color ?? "#FFB81C";
-              const isBuy = sig.action === "BUY";
+              const color = brain?.color ?? 'var(--hive-gold)';
+              const isBuy = sig.action === 'BUY';
               return (
-                <div key={sig.id} className="bg-[#0d0d0d] border rounded-lg px-3 py-2 flex items-center gap-3"
-                  style={{ borderColor: color + "25" }}>
-                  <span className="text-sm">{brain?.icon ?? "◎"}</span>
+                <div
+                  key={sig.id}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl border"
+                  style={{ borderColor: color + '25', background: 'var(--hive-surface-1)' }}
+                >
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0"
+                    style={{ background: color + '12', border: `1px solid ${color}25` }}
+                  >
+                    {brain?.icon ?? '◎'}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="mono font-black text-xs text-[#d4d0c8]">{sig.ticker}</span>
-                      <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${isBuy ? "bg-[#22c55e20] text-[#22c55e]" : "bg-[#ef444420] text-[#ef4444]"}`}>
-                        {isBuy ? "▲ BUY" : "▼ SHORT"}
+                      <span className="mono font-black text-xs" style={{ color: 'var(--hive-text-0)' }}>
+                        {sig.ticker}
+                      </span>
+                      <span className={`hive-badge ${isBuy ? 'hive-badge-buy' : 'hive-badge-sell'}`}>
+                        {isBuy ? '▲ BUY' : '▼ SHORT'}
                       </span>
                     </div>
-                    <div className="text-[8px] text-[#6b6860] truncate mt-0.5">{sig.reasoning.slice(0, 55)}...</div>
+                    <div
+                      className="text-[8px] truncate mt-0.5 line-clamp-1"
+                      style={{ color: 'var(--hive-text-3)' }}
+                    >
+                      {sig.reasoning.slice(0, 60)}…
+                    </div>
                   </div>
                   <div className="text-right flex-shrink-0">
                     <div className="mono text-[9px] font-bold" style={{ color }}>
                       {(sig.confidence * 100).toFixed(0)}%
                     </div>
-                    <div className="text-[7px] text-[#4a4a44]">{brain?.name}</div>
+                    <div className="hive-sublabel">{brain?.name}</div>
                   </div>
                 </div>
               );
@@ -123,14 +196,9 @@ export default function HiveCommand() {
           </div>
         </div>
 
-        {/* 6 Specialists Grid */}
+        {/* ── 6 Specialists ── */}
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-[9px] font-bold tracking-widest text-[#6b6860]">6 SPECIALISTS</div>
-            <Link to="/brains">
-              <span className="text-[8px] text-[#FFB81C]">FULL GRID →</span>
-            </Link>
-          </div>
+          <SectionHead label="6 SPECIALISTS" linkTo="/brains" linkLabel="FULL GRID →" />
           <div className="space-y-2">
             {BRAINS.map(brain => (
               <BrainCard key={brain.id} brain={brain} compact />
@@ -138,22 +206,43 @@ export default function HiveCommand() {
           </div>
         </div>
 
-        {/* Sin Grid */}
+        {/* ── Brotherhood of Sins ── */}
         <div>
-          <div className="text-[9px] font-bold tracking-widest text-[#6b6860] mb-2">BROTHERHOOD OF SINS</div>
+          <SectionHead label="BROTHERHOOD OF SINS" />
           <div className="grid grid-cols-3 gap-2">
             {BRAINS.map(b => (
               <Link key={b.id} to={`/brains/${b.id}`}>
-                <div className="bg-[#0d0d0d] border rounded-lg p-2.5 text-center active:scale-95 transition-all"
-                  style={{ borderColor: b.color + "30" }}>
-                  <div className="text-xl mb-0.5" style={{ color: b.color }}>{b.sinGlyph}</div>
-                  <div className="text-[8px] font-bold tracking-widest" style={{ color: b.color }}>{b.sin}</div>
-                  <div className="text-[7px] text-[#4a4a44]">{b.focus}</div>
+                <div
+                  className="relative overflow-hidden rounded-xl p-3 text-center transition-all active:scale-95"
+                  style={{
+                    background: 'var(--hive-surface-1)',
+                    border: `1px solid ${b.color}28`,
+                    boxShadow: `inset 0 1px 0 ${b.color}06`,
+                  }}
+                >
+                  {/* Glyph watermark */}
+                  <div
+                    className="absolute bottom-0 right-1 text-4xl leading-none pointer-events-none select-none"
+                    style={{ color: b.color, opacity: 0.06 }}
+                  >
+                    {b.sinGlyph}
+                  </div>
+                  <div className="relative">
+                    <div className="text-2xl mb-1" style={{ color: b.color }}>{b.sinGlyph}</div>
+                    <div
+                      className="text-[8px] font-black tracking-widest"
+                      style={{ color: b.color }}
+                    >
+                      {b.sin}
+                    </div>
+                    <div className="hive-sublabel mt-0.5">{b.focus}</div>
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );
