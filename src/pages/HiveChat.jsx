@@ -3,12 +3,12 @@ import { BRAINS } from '../lib/hiveData';
 import { base44 } from '@/api/base44Client';
 
 const ENTITIES = [
-  { id: "THE_BRAIN", icon: "📈", color: "#FFB81C", name: "THE BRAIN", subtitle: "PRIDE · STOCKS" },
-  { id: "APEX",      icon: "₿",  color: "#ef4444", name: "APEX",      subtitle: "LUST · CRYPTO" },
-  { id: "VENOM",     icon: "⚡", color: "#a855f7", name: "VENOM",     subtitle: "ENVY · OPTIONS" },
-  { id: "ORACLE",    icon: "💱", color: "#22c55e", name: "ORACLE",    subtitle: "GLUTTONY · FOREX" },
-  { id: "GHOST",     icon: "⬡", color: "#3b82f6", name: "GHOST",     subtitle: "WRATH · FUTURES" },
-  { id: "TITAN",     icon: "🏦", color: "#f59e0b", name: "TITAN",     subtitle: "GREED · ETFs" },
+  { id: "THE_BRAIN", icon: "📈", color: "#C8892A", name: "THE BRAIN", subtitle: "PRIDE · STOCKS" },
+  { id: "APEX",      icon: "₿",  color: "#C04438", name: "APEX",      subtitle: "LUST · CRYPTO" },
+  { id: "VENOM",     icon: "⚡", color: "#8A54E0", name: "VENOM",     subtitle: "ENVY · OPTIONS" },
+  { id: "ORACLE",    icon: "💱", color: "#3E9E6B", name: "ORACLE",    subtitle: "GLUTTONY · FOREX" },
+  { id: "GHOST",     icon: "⬡", color: "#3A74D4", name: "GHOST",     subtitle: "WRATH · FUTURES" },
+  { id: "TITAN",     icon: "🏦", color: "#D4A020", name: "TITAN",     subtitle: "GREED · ETFs" },
 ];
 
 const BRAIN_PERSONAS = {
@@ -91,7 +91,7 @@ export default function HiveChat() {
   return (
     <div className="flex flex-col" style={{ height: 'calc(100dvh - 56px)' }}>
       {/* Brain selector — horizontal scroll */}
-      <div className="flex-shrink-0 bg-[#0a0a0a] border-b border-[#1a1a1a] pt-3">
+      <div className="flex-shrink-0 bg-[#0B0905] border-b border-[#2B2216] pt-3">
         <div className="flex overflow-x-auto pb-2 px-3 gap-2 no-scrollbar">
           {ENTITIES.map(e => {
             const active = e.id === activeId;
@@ -100,10 +100,10 @@ export default function HiveChat() {
                 className="flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all"
                 style={{
                   background: active ? e.color + "15" : "transparent",
-                  border: `1px solid ${active ? e.color + "50" : "#1a1a1a"}`,
+                  border: `1px solid ${active ? e.color + "50" : "#2B2216"}`,
                 }}>
                 <span className="text-lg">{e.icon}</span>
-                <span className="text-[7px] font-bold tracking-widest" style={{ color: active ? e.color : "#6b6860" }}>
+                <span className="text-[7px] font-bold tracking-widest" style={{ color: active ? e.color : "#8A7F6D" }}>
                   {e.name}
                 </span>
               </button>
@@ -126,7 +126,7 @@ export default function HiveChat() {
           </div>
         </div>
         <button onClick={() => setChats(prev => ({ ...prev, [activeId]: [] }))}
-          className="text-[8px] px-2 py-1 rounded border text-[#444] border-[#222] hover:text-[#ef4444]">
+          className="text-[8px] px-2 py-1 rounded border text-[#444] border-[#222] hover:text-[#C04438]">
           CLEAR
         </button>
       </div>
@@ -196,7 +196,7 @@ export default function HiveChat() {
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div className="flex items-end gap-2">
           <div className="flex-1 flex items-center gap-2 rounded-xl border px-3 py-2 min-h-[40px]"
-            style={{ background: "#0e0e0e", borderColor: input ? cfg.color + "45" : "#1a1a1a" }}>
+            style={{ background: "#0e0e0e", borderColor: input ? cfg.color + "45" : "#2B2216" }}>
             <span className="text-sm flex-shrink-0" style={{ color: cfg.color }}>›</span>
             <textarea
               ref={inputRef}
@@ -209,7 +209,7 @@ export default function HiveChat() {
               }}
               onKeyDown={handleKeyDown}
               placeholder={`Message ${cfg.name}...`}
-              className="flex-1 bg-transparent text-[11px] text-[#c8c4bc] outline-none resize-none placeholder:text-[#2a2a2a]"
+              className="flex-1 bg-transparent text-[11px] text-[#c8c4bc] outline-none resize-none placeholder:text-[#3A2E1F]"
               style={{ minHeight: "20px", maxHeight: "100px" }}
               disabled={isTyping}
             />
@@ -217,7 +217,7 @@ export default function HiveChat() {
           <button onClick={handleSend} disabled={!input.trim() || isTyping}
             className="px-3 py-2 rounded-xl text-[9px] font-black tracking-widest flex-shrink-0 transition-all"
             style={{
-              background: input.trim() && !isTyping ? cfg.color : "#111",
+              background: input.trim() && !isTyping ? cfg.color : "#1A1510",
               color: input.trim() && !isTyping ? "#000" : "#333",
               border: `1px solid ${input.trim() && !isTyping ? cfg.color : "#1e1e1e"}`,
               minWidth: "56px",

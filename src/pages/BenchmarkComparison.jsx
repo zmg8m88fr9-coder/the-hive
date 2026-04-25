@@ -26,8 +26,8 @@ function generateBenchmarkData() {
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#111] border border-[#2a2a2a] rounded px-2 py-1.5 text-[7px] font-mono">
-      <div className="text-[#6b6860]">Day {label}</div>
+    <div className="bg-[#1A1510] border border-[#3A2E1F] rounded px-2 py-1.5 text-[7px] font-mono">
+      <div className="text-[#8A7F6D]">Day {label}</div>
       {payload.map((p, i) => (
         <div key={i} style={{ color: p.color }}>
           {p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}
@@ -118,15 +118,15 @@ export default function BenchmarkComparison() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
-        <h1 className="text-base font-black tracking-widest text-[#FFB81C]">ALPHA ANALYSIS</h1>
-        <div className="text-[8px] text-[#6b6860]">Brain Performance vs Market Benchmarks · Excess Returns</div>
+      <div className="sticky top-0 z-10 bg-[#0B0905] border-b border-[#2B2216] px-4 pt-4 pb-3">
+        <h1 className="text-base font-black tracking-widest text-[#C8892A]">ALPHA ANALYSIS</h1>
+        <div className="text-[8px] text-[#8A7F6D]">Brain Performance vs Market Benchmarks · Excess Returns</div>
 
         {/* Benchmark selector */}
         <div className="flex gap-1.5 mt-3">
           {[
-            { id: 'sp500', label: 'S&P 500', color: '#3b82f6' },
-            { id: 'btc', label: 'Bitcoin', color: '#f59e0b' },
+            { id: 'sp500', label: 'S&P 500', color: '#3A74D4' },
+            { id: 'btc', label: 'Bitcoin', color: '#D4A020' },
           ].map(b => (
             <button
               key={b.id}
@@ -134,7 +134,7 @@ export default function BenchmarkComparison() {
               className="px-3 py-1.5 rounded text-[7px] font-bold tracking-widest transition-all"
               style={{
                 background: benchmark === b.id ? b.color + '20' : 'transparent',
-                border: `1px solid ${benchmark === b.id ? b.color + '50' : '#1a1a1a'}`,
+                border: `1px solid ${benchmark === b.id ? b.color + '50' : '#2B2216'}`,
                 color: benchmark === b.id ? b.color : '#444',
               }}
             >
@@ -155,8 +155,8 @@ export default function BenchmarkComparison() {
                 onClick={() => toggleBrain(b.id)}
                 className="flex items-center gap-1 px-2 py-1 rounded-full text-[7px] font-bold tracking-widest transition-all"
                 style={{
-                  background: on ? b.color + '20' : '#0d0d0d',
-                  border: `1px solid ${on ? b.color + '60' : '#1a1a1a'}`,
+                  background: on ? b.color + '20' : '#131009',
+                  border: `1px solid ${on ? b.color + '60' : '#2B2216'}`,
                   color: on ? b.color : '#333',
                 }}
               >
@@ -168,11 +168,11 @@ export default function BenchmarkComparison() {
         </div>
 
         {/* Performance Chart */}
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-          <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">CUMULATIVE PERFORMANCE (90D)</div>
+        <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
+          <div className="text-[7px] text-[#4D4538] tracking-widest mb-2">CUMULATIVE PERFORMANCE (90D)</div>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={perfData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid stroke="#1a1a1a" />
+              <CartesianGrid stroke="#2B2216" />
               <XAxis dataKey="day" tick={{ fill: '#333', fontSize: 8 }} />
               <YAxis tick={{ fill: '#333', fontSize: 8 }} />
               <Tooltip content={<CustomTooltip />} />
@@ -182,7 +182,7 @@ export default function BenchmarkComparison() {
               <Line
                 type="monotone"
                 dataKey={benchmarkLabel}
-                stroke={benchmark === 'sp500' ? '#3b82f6' : '#f59e0b'}
+                stroke={benchmark === 'sp500' ? '#3A74D4' : '#D4A020'}
                 strokeWidth={2}
                 dot={false}
                 isAnimationActive={false}
@@ -205,25 +205,25 @@ export default function BenchmarkComparison() {
         </div>
 
         {/* Alpha Ranking */}
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-          <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-3">ALPHA RANKING (vs {benchmarkLabel})</div>
+        <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
+          <div className="text-[7px] text-[#4D4538] tracking-widest mb-3">ALPHA RANKING (vs {benchmarkLabel})</div>
           
           {/* Alpha bar chart */}
           <div className="mb-4">
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={sortedByAlpha} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid stroke="#1a1a1a" />
+                <CartesianGrid stroke="#2B2216" />
                 <XAxis dataKey="brain.name" tick={{ fill: '#333', fontSize: 6 }} angle={-45} textAnchor="end" height={50} />
                 <YAxis tick={{ fill: '#333', fontSize: 8 }} label={{ value: 'Alpha %', angle: -90, position: 'insideLeft' }} />
                 <Tooltip 
-                  contentStyle={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: 4, fontSize: 7 }}
+                  contentStyle={{ background: '#1A1510', border: '1px solid #3A2E1F', borderRadius: 4, fontSize: 7 }}
                   formatter={(value) => `${value.toFixed(2)}%`}
                 />
                 <Bar dataKey="alpha" radius={[4, 4, 0, 0]} isAnimationActive={false}>
                   {sortedByAlpha.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
-                      fill={entry.alpha > 0 ? '#22c55e' : '#ef4444'}
+                      fill={entry.alpha > 0 ? '#3E9E6B' : '#C04438'}
                     />
                   ))}
                 </Bar>
@@ -235,9 +235,9 @@ export default function BenchmarkComparison() {
           <div className="overflow-x-auto">
             <table className="w-full text-[7px] font-mono">
               <thead>
-                <tr className="border-b border-[#1a1a1a]">
+                <tr className="border-b border-[#2B2216]">
                   {['RANK', 'BRAIN', 'RETURN', benchmarkLabel.toUpperCase(), 'ALPHA', 'BEATS?', 'TRADES'].map(h => (
-                    <th key={h} className="text-left py-1.5 px-2 text-[6px] text-[#3a3a3a] tracking-widest">{h}</th>
+                    <th key={h} className="text-left py-1.5 px-2 text-[6px] text-[#4D4538] tracking-widest">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -248,21 +248,21 @@ export default function BenchmarkComparison() {
                     <td className="py-1.5 px-2">
                       <span style={{ color: metric.brain.color }} className="font-bold">{metric.brain.name}</span>
                     </td>
-                    <td className="py-1.5 px-2" style={{ color: metric.totalReturn >= 0 ? '#22c55e' : '#ef4444' }}>
+                    <td className="py-1.5 px-2" style={{ color: metric.totalReturn >= 0 ? '#3E9E6B' : '#C04438' }}>
                       {metric.totalReturn >= 0 ? '+' : ''}{metric.totalReturn.toFixed(2)}%
                     </td>
-                    <td className="py-1.5 px-2 text-[#6b6860]">
+                    <td className="py-1.5 px-2 text-[#8A7F6D]">
                       {metric.benchmarkReturn >= 0 ? '+' : ''}{metric.benchmarkReturn.toFixed(2)}%
                     </td>
-                    <td className="py-1.5 px-2 font-bold" style={{ color: metric.alpha > 0 ? '#22c55e' : '#ef4444' }}>
+                    <td className="py-1.5 px-2 font-bold" style={{ color: metric.alpha > 0 ? '#3E9E6B' : '#C04438' }}>
                       {metric.alpha > 0 ? '+' : ''}{metric.alpha.toFixed(2)}%
                     </td>
                     <td className="py-1.5 px-2">
-                      <span className={`px-1 py-0.5 rounded text-[6px] font-bold ${metric.beatsBenchmark ? 'bg-[#22c55e20] text-[#22c55e]' : 'bg-[#ef444420] text-[#ef4444]'}`}>
+                      <span className={`px-1 py-0.5 rounded text-[6px] font-bold ${metric.beatsBenchmark ? 'bg-[#3E9E6B20] text-[#3E9E6B]' : 'bg-[#C0443820] text-[#C04438]'}`}>
                         {metric.beatsBenchmark ? 'YES' : 'NO'}
                       </span>
                     </td>
-                    <td className="py-1.5 px-2 text-[#6b6860]">{metric.tradeCount}</td>
+                    <td className="py-1.5 px-2 text-[#8A7F6D]">{metric.tradeCount}</td>
                   </tr>
                 ))}
               </tbody>
@@ -271,15 +271,15 @@ export default function BenchmarkComparison() {
         </div>
 
         {/* Insights */}
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3 space-y-2">
-          <div className="text-[7px] text-[#3a3a3a] tracking-widest">ALPHA INSIGHTS</div>
+        <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3 space-y-2">
+          <div className="text-[7px] text-[#4D4538] tracking-widest">ALPHA INSIGHTS</div>
           {sortedByAlpha.slice(0, 3).map((metric, i) => {
             const label = i === 0 ? 'TOP ALPHA' : i === 1 ? '2ND' : '3RD';
             return (
-              <div key={metric.brain.id} className="flex items-center gap-2 px-2 py-1.5 bg-[#111] rounded border border-[#1a1a1a]">
+              <div key={metric.brain.id} className="flex items-center gap-2 px-2 py-1.5 bg-[#1A1510] rounded border border-[#2B2216]">
                 <span className="text-[8px] font-bold w-10" style={{ color: metric.brain.color }}>{label}</span>
                 <span className="text-[8px]" style={{ color: metric.brain.color }}>{metric.brain.icon} {metric.brain.name}</span>
-                <span className="ml-auto text-[8px] font-bold" style={{ color: metric.alpha > 0 ? '#22c55e' : '#ef4444' }}>
+                <span className="ml-auto text-[8px] font-bold" style={{ color: metric.alpha > 0 ? '#3E9E6B' : '#C04438' }}>
                   {metric.alpha > 0 ? '+' : ''}{metric.alpha.toFixed(2)}% alpha
                 </span>
               </div>

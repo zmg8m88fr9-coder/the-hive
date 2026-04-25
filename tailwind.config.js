@@ -9,6 +9,10 @@ module.exports = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+  		fontFamily: {
+  			cinzel: ['Cinzel', 'serif'],
+  			mono: ['JetBrains Mono', 'monospace'],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -59,29 +63,46 @@ module.exports = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+  			/* ── Hive Design Tokens ─────────────────────── */
+  			hive: {
+  				void:    '#0B0905',
+  				surface: '#131009',
+  				raised:  '#1A1510',
+  				hover:   '#211D14',
+  				edge:    '#2B2216',
+  				rim:     '#3A2E1F',
+  				text:    '#DDD6C4',
+  				muted:   '#8A7F6D',
+  				dim:     '#4D4538',
+  				gold:    '#C8892A',
+  				amber:   '#E8A620',
+  				profit:  '#3E9E6B',
+  				loss:    '#C04438',
+  			},
+  			/* ── Brain Sin Colors ──────────────────────── */
+  			sin: {
+  				pride:     '#C8892A',
+  				lust:      '#C04438',
+  				envy:      '#8A54E0',
+  				gluttony:  '#3E9E6B',
+  				wrath:     '#3A74D4',
+  				greed:     '#D4A020',
+  			},
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  				from: { height: '0' },
+  				to:   { height: 'var(--radix-accordion-content-height)' }
   			},
   			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
+  				from: { height: 'var(--radix-accordion-content-height)' },
+  				to:   { height: '0' }
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up':   'accordion-up 0.2s ease-out'
   		}
   	}
   },

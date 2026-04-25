@@ -51,8 +51,8 @@ export default function StrategyComparison({ brainStats }) {
             <button key={brain.id} onClick={() => toggleBrain(brain.id)}
               className="flex items-center gap-1 px-2 py-1 rounded-full text-[7px] font-bold tracking-widest transition-all"
               style={{
-                background: on ? brain.color + '20' : '#0d0d0d',
-                border: `1px solid ${on ? brain.color + '60' : '#1a1a1a'}`,
+                background: on ? brain.color + '20' : '#131009',
+                border: `1px solid ${on ? brain.color + '60' : '#2B2216'}`,
                 color: on ? brain.color : '#333',
               }}>
               <span>{brain.icon}</span>
@@ -63,11 +63,11 @@ export default function StrategyComparison({ brainStats }) {
       </div>
 
       {/* Radar chart */}
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
+      <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
         <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">STRATEGY RADAR (NORMALIZED)</div>
         <ResponsiveContainer width="100%" height={220}>
           <RadarChart data={radarData} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
-            <PolarGrid stroke="#1a1a1a" />
+            <PolarGrid stroke="#2B2216" />
             <PolarAngleAxis dataKey="metric" tick={{ fill: '#444', fontSize: 6, fontFamily: 'JetBrains Mono' }} />
             {activeBrains.map(({ brain }) => (
               <Radar key={brain.id} name={brain.name} dataKey={brain.id}
@@ -75,8 +75,8 @@ export default function StrategyComparison({ brainStats }) {
                 dot={{ r: 2, fill: brain.color }} />
             ))}
             <Tooltip
-              contentStyle={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: 6, fontSize: 7, fontFamily: 'JetBrains Mono' }}
-              labelStyle={{ color: '#6b6860' }}
+              contentStyle={{ background: '#1A1510', border: '1px solid #2a2a2a', borderRadius: 6, fontSize: 7, fontFamily: 'JetBrains Mono' }}
+              labelStyle={{ color: '#8A7F6D' }}
             />
           </RadarChart>
         </ResponsiveContainer>
@@ -91,12 +91,12 @@ export default function StrategyComparison({ brainStats }) {
       </div>
 
       {/* Side-by-side metrics table */}
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl overflow-hidden">
+      <div className="bg-[#131009] border border-[#2B2216] rounded-xl overflow-hidden">
         <div className="text-[7px] text-[#3a3a3a] tracking-widest px-3 pt-3 pb-2">METRICS COMPARISON</div>
         <div className="overflow-x-auto">
           <table className="w-full text-[7px] font-mono min-w-[340px]">
             <thead>
-              <tr className="border-b border-[#1a1a1a]">
+              <tr className="border-b border-[#2B2216]">
                 <th className="text-left py-1.5 px-3 text-[6px] text-[#3a3a3a] tracking-widest">METRIC</th>
                 {activeBrains.map(({ brain }) => (
                   <th key={brain.id} className="py-1.5 px-2 text-[6px] tracking-widest text-center" style={{ color: brain.color }}>
@@ -115,7 +115,7 @@ export default function StrategyComparison({ brainStats }) {
                     const allVals = brainStats.map(b => b[metric.key]);
                     const isBest = val === Math.max(...allVals.filter(v => v !== Infinity));
                     const isWorst = val === Math.min(...allVals);
-                    const color = isBest ? '#22c55e' : isWorst ? '#ef4444' : '#9a9a94';
+                    const color = isBest ? '#3E9E6B' : isWorst ? '#C04438' : '#9a9a94';
                     return (
                       <td key={brain.id} className="py-1.5 px-2 text-center font-bold" style={{ color }}>
                         {metric.format(val)}
@@ -131,12 +131,12 @@ export default function StrategyComparison({ brainStats }) {
       </div>
 
       {/* Written ranking */}
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
+      <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
         <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">STRATEGY VERDICT</div>
         <div className="space-y-1.5">
           {brainStats.map(({ brain, winRate, roi, profitFactor }, i) => {
             const grade = roi > 300 ? 'ELITE' : roi > 100 ? 'STRONG' : roi > 0 ? 'POSITIVE' : 'UNDERPERFORMING';
-            const gradeColor = grade === 'ELITE' ? '#FFB81C' : grade === 'STRONG' ? '#22c55e' : grade === 'POSITIVE' ? '#3b82f6' : '#ef4444';
+            const gradeColor = grade === 'ELITE' ? '#C8892A' : grade === 'STRONG' ? '#3E9E6B' : grade === 'POSITIVE' ? '#3A74D4' : '#C04438';
             return (
               <div key={brain.id} className="flex items-center gap-2">
                 <span className="text-[7px] text-[#444] w-4 text-center">#{i + 1}</span>

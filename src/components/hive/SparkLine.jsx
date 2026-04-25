@@ -1,12 +1,12 @@
 // Always use 200 as internal coordinate width, scale via SVG viewBox
-export default function SparkLine({ data = [], width = "100%", height = 28, color = "#FFB81C", showDot = true }) {
+export default function SparkLine({ data = [], width = "100%", height = 28, color = "#C8892A", showDot = true }) {
   const CW = 200; // internal coordinate width
   const CH = height;
 
   if (!data || data.length < 2) {
     return (
       <svg width={width} height={height} viewBox={`0 0 ${CW} ${CH}`} preserveAspectRatio="none" style={{ display: 'block' }}>
-        <line x1="0" y1={CH/2} x2={CW} y2={CH/2} stroke="#333" strokeWidth="1" />
+        <line x1="0" y1={CH/2} x2={CW} y2={CH/2} stroke="#3A2E1F" strokeWidth="1" />
       </svg>
     );
   }

@@ -45,19 +45,19 @@ export default function AlphaWidget() {
 
   return (
     <Link to="/alpha">
-      <div className="bg-gradient-to-br from-[#0d0d0d] to-[#050505] border border-[#3b82f6] rounded-xl p-3.5 hover:border-[#3b82f650] transition-all cursor-pointer">
+      <div className="bg-gradient-to-br from-[#131009] to-[#0B0905] border border-[#3A74D4] rounded-xl p-3.5 hover:border-[#3A74D450] transition-all cursor-pointer">
         <div className="flex items-center justify-between mb-2.5">
           <div className="flex items-center gap-2">
-            <span className="text-[9px] font-bold tracking-widest text-[#3b82f6]">ALPHA GENERATION</span>
-            <span className="text-[6px] px-1.5 py-0.5 rounded bg-[#3b82f620] text-[#3b82f6]">vs S&P 500</span>
+            <span className="text-[9px] font-bold tracking-widest text-[#3A74D4]">ALPHA GENERATION</span>
+            <span className="text-[6px] px-1.5 py-0.5 rounded bg-[#3A74D420] text-[#3A74D4]">vs S&P 500</span>
           </div>
-          <span className="text-[8px] text-[#3b82f6]">→</span>
+          <span className="text-[8px] text-[#3A74D4]">→</span>
         </div>
 
         {/* Top performer */}
         {topAlpha && (
-          <div className="mb-2.5 pb-2.5 border-b border-[#1a1a1a]">
-            <div className="text-[6px] text-[#4a4a44] tracking-widest mb-1">TOP ALPHA GENERATOR</div>
+          <div className="mb-2.5 pb-2.5 border-b border-[#2B2216]">
+            <div className="text-[6px] text-[#4D4538] tracking-widest mb-1">TOP ALPHA GENERATOR</div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <span className="text-sm">{topAlpha.brain.icon}</span>
@@ -65,14 +65,14 @@ export default function AlphaWidget() {
                   <div className="text-[8px] font-black" style={{ color: topAlpha.brain.color }}>
                     {topAlpha.brain.name}
                   </div>
-                  <div className="text-[6px] text-[#4a4a44]">{topAlpha.brain.focus}</div>
+                  <div className="text-[6px] text-[#4D4538]">{topAlpha.brain.focus}</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-[9px] font-black" style={{ color: topAlpha.alphaSp500 > 0 ? '#22c55e' : '#ef4444' }}>
+                <div className="text-[9px] font-black" style={{ color: topAlpha.alphaSp500 > 0 ? '#3E9E6B' : '#C04438' }}>
                   {topAlpha.alphaSp500 > 0 ? '+' : ''}{topAlpha.alphaSp500.toFixed(1)}%
                 </div>
-                <div className="text-[6px] text-[#3a3a3a]">Alpha</div>
+                <div className="text-[6px] text-[#4D4538]">Alpha</div>
               </div>
             </div>
           </div>
@@ -80,19 +80,19 @@ export default function AlphaWidget() {
 
         {/* Stats grid */}
         <div className="grid grid-cols-3 gap-1">
-          <div className="bg-[#111] rounded p-1.5 text-center">
-            <div className="text-[8px] font-black text-[#3b82f6]">{beatingBenchmark}/6</div>
-            <div className="text-[6px] text-[#3a3a3a]">Beat S&P</div>
+          <div className="bg-[#1A1510] rounded p-1.5 text-center">
+            <div className="text-[8px] font-black text-[#3A74D4]">{beatingBenchmark}/6</div>
+            <div className="text-[6px] text-[#4D4538]">Beat S&P</div>
           </div>
-          <div className="bg-[#111] rounded p-1.5 text-center">
-            <div className="text-[8px] font-black" style={{ color: avgAlpha > 0 ? '#22c55e' : '#ef4444' }}>
+          <div className="bg-[#1A1510] rounded p-1.5 text-center">
+            <div className="text-[8px] font-black" style={{ color: avgAlpha > 0 ? '#3E9E6B' : '#C04438' }}>
               {avgAlpha > 0 ? '+' : ''}{avgAlpha.toFixed(1)}%
             </div>
-            <div className="text-[6px] text-[#3a3a3a]">Avg Alpha</div>
+            <div className="text-[6px] text-[#4D4538]">Avg Alpha</div>
           </div>
-          <div className="bg-[#111] rounded p-1.5 text-center">
-            <div className="text-[8px] font-black text-[#FFB81C]">{BENCHMARK_RETURNS.sp500}%</div>
-            <div className="text-[6px] text-[#3a3a3a]">Benchmark</div>
+          <div className="bg-[#1A1510] rounded p-1.5 text-center">
+            <div className="text-[8px] font-black text-[#C8892A]">{BENCHMARK_RETURNS.sp500}%</div>
+            <div className="text-[6px] text-[#4D4538]">Benchmark</div>
           </div>
         </div>
       </div>

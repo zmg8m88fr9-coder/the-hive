@@ -5,7 +5,7 @@ const ALGORITHMS = [
     id: 'short_squeeze',
     name: 'Short Squeeze',
     category: 'Setup-Based',
-    color: '#ef4444',
+    color: '#C04438',
     description: 'High short interest + low float + catalyst breakout',
     rules: [
       'Scan for high short interest and low float',
@@ -24,7 +24,7 @@ const ALGORITHMS = [
     id: 'vwap_trend_day',
     name: 'VWAP Trend Day',
     category: 'Technical',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Trade trend days with VWAP as dynamic support/resistance',
     rules: [
       'After open, check if price holds above VWAP',
@@ -42,7 +42,7 @@ const ALGORITHMS = [
     id: 'momentum',
     name: 'Momentum',
     category: 'Technical',
-    color: '#f59e0b',
+    color: '#D4A020',
     description: 'Ride directional momentum with RSI and MACD confluence',
     rules: [
       'Identify strong directional move (up or down)',
@@ -99,7 +99,7 @@ const ALGORITHMS = [
     id: 'carry_trade',
     name: 'Carry Trade',
     category: 'Macro',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Long higher-yield currency, short lower-yield',
     rules: [
       'Identify interest rate differential',
@@ -118,7 +118,7 @@ const ALGORITHMS = [
     id: 'breakout',
     name: 'Breakout',
     category: 'Technical',
-    color: '#FFB81C',
+    color: '#C8892A',
     description: 'Trade price breaks of key resistance/support levels',
     rules: [
       'Identify consolidation (flag, triangle, rectangle)',
@@ -175,7 +175,7 @@ const ALGORITHMS = [
     id: 'rl_agent',
     name: 'RL Trading Agent',
     category: 'Machine Learning',
-    color: '#3b82f6',
+    color: '#3A74D4',
     description: 'Adaptive agent trained with profit-based reward signal',
     rules: [
       'Define state: price, volume, indicators, position, unrealized P/L',
@@ -233,7 +233,7 @@ const ALGORITHMS = [
     id: 'news_catalyst',
     name: 'News Catalyst Momentum',
     category: 'Event-Based',
-    color: '#a855f7',
+    color: '#8A54E0',
     description: 'Trade momentum from fresh news events with volume confirmation',
     rules: [
       'Scan for fresh news: earnings beat, FDA approval, merger, contract, guidance raise',
@@ -286,7 +286,7 @@ const ALGORITHMS = [
     id: 'fibonacci',
     name: 'Fibonacci Pullback',
     category: 'Technical',
-    color: '#f59e0b',
+    color: '#D4A020',
     description: 'Trade pullbacks to Fibonacci retracement zones',
     rules: [
       'Identify strong impulse move',
@@ -323,7 +323,7 @@ const ALGORITHMS = [
     id: 'macd_momentum',
     name: 'MACD Momentum',
     category: 'Technical',
-    color: '#f59e0b',
+    color: '#D4A020',
     description: 'Trade momentum signals from MACD crossovers',
     rules: [
       'Calculate MACD line and signal line',
@@ -341,7 +341,7 @@ const ALGORITHMS = [
     id: 'atr_breakout',
     name: 'ATR Breakout',
     category: 'Technical',
-    color: '#ef4444',
+    color: '#C04438',
     description: 'Trade breakouts using ATR-based volatility thresholds',
     rules: [
       'Calculate ATR, usually 14-period',
@@ -414,7 +414,7 @@ const ALGORITHMS = [
     id: 'gap_go',
     name: 'Gap-and-Go',
     category: 'Intraday',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Trade gap-up breakouts with catalyst and volume confirmation',
     rules: [
       'Before open, scan for stocks gapping up',
@@ -451,7 +451,7 @@ const ALGORITHMS = [
     id: 'momentum_cont',
     name: 'Momentum Continuation',
     category: 'Technical',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Trade pullbacks within strong directional momentum moves',
     rules: [
       'Scan for stocks up strongly on high relative volume',
@@ -490,7 +490,7 @@ const ALGORITHMS = [
     id: 'opening_range',
     name: 'Opening Range Breakout',
     category: 'Intraday',
-    color: '#f59e0b',
+    color: '#D4A020',
     description: 'Trade breakouts from the session opening range with volume',
     rules: [
       'At market open, wait 5–30 minutes',
@@ -529,7 +529,7 @@ const ALGORITHMS = [
     id: 'market_impact',
     name: 'Market Impact Optimization',
     category: 'Execution',
-    color: '#f59e0b',
+    color: '#D4A020',
     description: 'Minimize market impact by optimizing trade execution timing (Almgren-Chriss)',
     rules: [
       'Estimate temporary market impact: I_temp = f(order_size / ADV, volatility)',
@@ -549,7 +549,7 @@ const ALGORITHMS = [
     id: 'vwap_optimized',
     name: 'VWAP Execution',
     category: 'Execution',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Execute orders to match volume-weighted average price throughout the day',
     rules: [
       'Calculate expected VWAP for the session',
@@ -589,7 +589,7 @@ const ALGORITHMS = [
     id: 'statistical_arbitrage',
     name: 'Statistical Arbitrage (Advanced)',
     category: 'Machine Learning',
-    color: '#a855f7',
+    color: '#8A54E0',
     description: 'Use regression and statistical models to identify mispricings',
     rules: [
       'Build factor model: expected_return = β₁·factor₁ + β₂·factor₂ + ε',
@@ -609,7 +609,7 @@ const ALGORITHMS = [
     id: 'daily_9ema_5min_200ema',
     name: 'Daily 9 EMA + 5-Min 200 EMA Confluence',
     category: 'Setup-Based',
-    color: '#22c55e',
+    color: '#3E9E6B',
     description: 'Long when daily 9 EMA breaks simultaneously with 5-min 200 EMA acting as support on pullback',
     rules: [
       'Pre-market: confirm stock is above the daily 9 EMA — this is the macro trend filter',
@@ -632,7 +632,7 @@ const ALGORITHMS = [
     id: 'limit_order',
     name: 'Smart Limit Order Strategy',
     category: 'Execution',
-    color: '#3b82f6',
+    color: '#3A74D4',
     description: 'Intelligent limit order placement balancing fill probability vs. execution cost',
     rules: [
       'Place limit order at favorable price for desired fill rate',
@@ -662,9 +662,9 @@ export default function AlgorithmLibrary() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
-        <h1 className="text-base font-black tracking-widest text-[#FFB81C]">ALGORITHM LIBRARY</h1>
-        <div className="text-[8px] text-[#6b6860]">Trading Setup Reference · Rules · Setups · Best Practices</div>
+      <div className="sticky top-0 z-10 bg-[#0B0905] border-b border-[#2B2216] px-4 pt-4 pb-3">
+        <h1 className="text-base font-black tracking-widest text-[#C8892A]">ALGORITHM LIBRARY</h1>
+        <div className="text-[8px] text-[#8A7F6D]">Trading Setup Reference · Rules · Setups · Best Practices</div>
       </div>
 
       <div className="px-4 pt-4 pb-6 space-y-4">
@@ -676,9 +676,9 @@ export default function AlgorithmLibrary() {
               onClick={() => setFilterCategory(cat)}
               className="flex-shrink-0 px-2.5 py-1.5 rounded-lg border text-[7px] font-bold tracking-widest transition-all"
               style={{
-                background: filterCategory === cat ? '#FFB81C15' : 'transparent',
-                border: `1px solid ${filterCategory === cat ? '#FFB81C50' : '#1a1a1a'}`,
-                color: filterCategory === cat ? '#FFB81C' : '#444',
+                background: filterCategory === cat ? '#C8892A15' : 'transparent',
+                border: `1px solid ${filterCategory === cat ? '#C8892A50' : '#2B2216'}`,
+                color: filterCategory === cat ? '#C8892A' : '#444',
               }}
             >
               {cat}
@@ -694,8 +694,8 @@ export default function AlgorithmLibrary() {
               <button
                 key={algo.id}
                 onClick={() => setSelectedAlgo(isSelected ? null : algo.id)}
-                className="text-left bg-[#0d0d0d] border rounded-lg p-3 transition-all active:scale-98"
-                style={{ borderColor: isSelected ? algo.color + '50' : '#1a1a1a' }}
+                className="text-left bg-[#131009] border rounded-lg p-3 transition-all active:scale-98"
+                style={{ borderColor: isSelected ? algo.color + '50' : '#2B2216' }}
               >
                 <div className="flex items-center gap-2.5 mb-1">
                   <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: algo.color }} />
@@ -703,13 +703,13 @@ export default function AlgorithmLibrary() {
                     <div className="text-[9px] font-bold tracking-widest truncate" style={{ color: algo.color }}>
                       {algo.name}
                     </div>
-                    <div className="text-[7px] text-[#6b6860]">{algo.category}</div>
+                    <div className="text-[7px] text-[#8A7F6D]">{algo.category}</div>
                   </div>
-                  <span className="text-[#3a3a3a] text-[8px]">{isSelected ? '▲' : '▼'}</span>
+                  <span className="text-[#4D4538] text-[8px]">{isSelected ? '▲' : '▼'}</span>
                 </div>
 
                 {!isSelected && (
-                  <div className="text-[8px] text-[#7a7a74] line-clamp-1">{algo.description}</div>
+                  <div className="text-[8px] text-[#8A7F6D] line-clamp-1">{algo.description}</div>
                 )}
 
                 {isSelected && (
@@ -717,26 +717,26 @@ export default function AlgorithmLibrary() {
                     {/* Meta */}
                     <div className="grid grid-cols-3 gap-2">
                       <div>
-                        <div className="text-[6px] text-[#4a4a44] tracking-widest mb-0.5">RISK</div>
-                        <div className="text-[7px] font-bold text-[#d4d0c8]">{algo.riskLevel}</div>
+                        <div className="text-[6px] text-[#4D4538] tracking-widest mb-0.5">RISK</div>
+                        <div className="text-[7px] font-bold text-[#DDD6C4]">{algo.riskLevel}</div>
                       </div>
                       <div>
-                        <div className="text-[6px] text-[#4a4a44] tracking-widest mb-0.5">HOLD TIME</div>
-                        <div className="text-[7px] font-bold text-[#d4d0c8]">{algo.holdTime}</div>
+                        <div className="text-[6px] text-[#4D4538] tracking-widest mb-0.5">HOLD TIME</div>
+                        <div className="text-[7px] font-bold text-[#DDD6C4]">{algo.holdTime}</div>
                       </div>
                       <div>
-                        <div className="text-[6px] text-[#4a4a44] tracking-widest mb-0.5">BEST FOR</div>
-                        <div className="text-[7px] font-bold text-[#d4d0c8]">{algo.bestFor.join(', ')}</div>
+                        <div className="text-[6px] text-[#4D4538] tracking-widest mb-0.5">BEST FOR</div>
+                        <div className="text-[7px] font-bold text-[#DDD6C4]">{algo.bestFor.join(', ')}</div>
                       </div>
                     </div>
 
                     {/* Rules */}
                     <div>
-                      <div className="text-[6px] text-[#4a4a44] tracking-widest mb-1.5">RULES</div>
+                      <div className="text-[6px] text-[#4D4538] tracking-widest mb-1.5">RULES</div>
                       <ol className="space-y-1">
                         {algo.rules.map((rule, i) => (
-                          <li key={i} className="flex gap-2 text-[7px] text-[#8a8a84] leading-relaxed">
-                            <span className="text-[#3a3a3a] flex-shrink-0">{i + 1}.</span>
+                          <li key={i} className="flex gap-2 text-[7px] text-[#8A7F6D] leading-relaxed">
+                            <span className="text-[#4D4538] flex-shrink-0">{i + 1}.</span>
                             <span>{rule}</span>
                           </li>
                         ))}

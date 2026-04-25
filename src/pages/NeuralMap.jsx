@@ -13,7 +13,7 @@ const BONDS = [
 ];
 
 const BOND_COLORS = {
-  feed: "#FFB81C", lead: "#ef4444", share: "#3b82f6", confirm: "#a855f7",
+  feed: "#C8892A", lead: "#C04438", share: "#3A74D4", confirm: "#8A54E0",
 };
 
 const TABS = [
@@ -57,15 +57,15 @@ export default function NeuralMap() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-10 bg-[#0B0905] border-b border-[#2B2216] px-4 pt-4 pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-base font-black tracking-widest text-[#FFB81C]">NEURAL MAP</h1>
-            <div className="text-[8px] text-[#6b6860]">The 6 Sinful Brains — Brothers in Money</div>
+            <h1 className="text-base font-black tracking-widest text-[#C8892A]">NEURAL MAP</h1>
+            <div className="text-[8px] text-[#8A7F6D]">The 6 Sinful Brains — Brothers in Money</div>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-            <span className="text-[8px] text-[#22c55e]">HIVE LIVE</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3E9E6B] animate-pulse" />
+            <span className="text-[8px] text-[#3E9E6B]">HIVE LIVE</span>
           </div>
         </div>
       </div>
@@ -75,9 +75,9 @@ export default function NeuralMap() {
         <div ref={containerRef} className="w-full bg-[#030303] border border-[#111] rounded-xl overflow-hidden" style={{ height: 280 }}>
           <svg width="100%" height="100%">
             {/* Center glow */}
-            <circle cx={dim.w/2} cy={dim.h/2} r={20} fill="#FFB81C" opacity={0.04} />
-            <circle cx={dim.w/2} cy={dim.h/2} r={12} fill="#FFB81C" opacity={0.06} />
-            <text x={dim.w/2} y={dim.h/2 + 4} textAnchor="middle" fontSize={6} fill="#FFB81C" opacity={0.25}
+            <circle cx={dim.w/2} cy={dim.h/2} r={20} fill="#C8892A" opacity={0.04} />
+            <circle cx={dim.w/2} cy={dim.h/2} r={12} fill="#C8892A" opacity={0.06} />
+            <text x={dim.w/2} y={dim.h/2 + 4} textAnchor="middle" fontSize={6} fill="#C8892A" opacity={0.25}
               fontFamily="JetBrains Mono, monospace" letterSpacing="3">HIVE</text>
 
             {/* Bond lines */}
@@ -85,7 +85,7 @@ export default function NeuralMap() {
               const a = coords(bond.from);
               const b2 = coords(bond.to);
               const isHighlit = selected === bond.from || selected === bond.to;
-              const bondColor = isHighlit ? (BOND_COLORS[bond.type] ?? "#FFB81C") : "#1a1a1a";
+              const bondColor = isHighlit ? (BOND_COLORS[bond.type] ?? "#C8892A") : "#2B2216";
               return (
                 <line key={i}
                   x1={a.x} y1={a.y} x2={b2.x} y2={b2.y}
@@ -145,7 +145,7 @@ export default function NeuralMap() {
 
         {/* Brain Detail Panel */}
         {brain && (
-          <div className="bg-[#050505] border rounded-xl overflow-hidden" style={{ borderColor: brain.color + "30" }}>
+          <div className="bg-[#0B0905] border rounded-xl overflow-hidden" style={{ borderColor: brain.color + "30" }}>
             {/* Panel header */}
             <div className="px-4 py-3 border-b flex items-start justify-between"
               style={{ borderColor: brain.color + "18", background: brain.color + "06" }}>
@@ -157,10 +157,10 @@ export default function NeuralMap() {
                     {brain.name}
                   </span>
                 </div>
-                <div className="text-[9px] italic text-[#6a6a64]">{brain.tagline}</div>
+                <div className="text-[9px] italic text-[#8A7F6D]">{brain.tagline}</div>
                 <div className="text-[9px] font-mono font-bold mt-0.5" style={{ color: brain.color }}>"{brain.voice}"</div>
               </div>
-              <button onClick={() => setSelected(null)} className="text-[#3a3a3a] text-sm">✕</button>
+              <button onClick={() => setSelected(null)} className="text-[#4D4538] text-sm">✕</button>
             </div>
 
             {/* Quote */}
@@ -175,7 +175,7 @@ export default function NeuralMap() {
                 <button key={t.id} onClick={() => setTab(t.id)}
                   className="flex-1 py-2 text-[8px] font-bold tracking-widest transition-all"
                   style={{
-                    color: tab === t.id ? brain.color : "#3a3a3a",
+                    color: tab === t.id ? brain.color : "#4D4538",
                     background: tab === t.id ? brain.color + "0c" : "transparent",
                     borderBottom: tab === t.id ? `1.5px solid ${brain.color}` : "1.5px solid transparent",
                   }}>
@@ -192,7 +192,7 @@ export default function NeuralMap() {
                     {brain.sinTraits.map((t, i) => (
                       <li key={i} className="flex gap-2 items-start">
                         <span style={{ color: brain.color }} className="text-[8px] shrink-0">{brain.sinGlyph}</span>
-                        <span className="text-[8px] text-[#8a8a84] leading-relaxed">{t}</span>
+                        <span className="text-[8px] text-[#8A7F6D] leading-relaxed">{t}</span>
                       </li>
                     ))}
                   </ul>
@@ -202,9 +202,9 @@ export default function NeuralMap() {
                       { label: "HOLD", value: brain.avgHoldMinutes >= 60 ? `${(brain.avgHoldMinutes/60).toFixed(1)}h` : `${brain.avgHoldMinutes}m` },
                       { label: "SPEED", value: brain.signalSpeed },
                     ].map(s => (
-                      <div key={s.label} className="bg-[#0a0a0a] rounded p-2 text-center">
+                      <div key={s.label} className="bg-[#0B0905] rounded p-2 text-center">
                         <div className="mono text-sm font-black" style={{ color: brain.color }}>{s.value}</div>
-                        <div className="text-[7px] text-[#3a3a3a]">{s.label}</div>
+                        <div className="text-[7px] text-[#4D4538]">{s.label}</div>
                       </div>
                     ))}
                   </div>
@@ -219,11 +219,11 @@ export default function NeuralMap() {
                     const peer = BRAINS.find(b2 => b2.id === peerId);
                     const bcolor = BOND_COLORS[bond.type] ?? brain.color;
                     return (
-                      <div key={i} className="flex items-center gap-2 bg-[#0a0a0a] rounded px-2 py-2">
+                      <div key={i} className="flex items-center gap-2 bg-[#0B0905] rounded px-2 py-2">
                         <span className="text-[9px] font-bold" style={{ color: peer?.color }}>{peer?.name}</span>
                         <span className="text-[7px] px-1.5 py-0.5 rounded"
                           style={{ background: bcolor + "18", color: bcolor }}>{bond.type}</span>
-                        <span className="text-[7px] text-[#3a3a3a] flex-1 truncate">{bond.label}</span>
+                        <span className="text-[7px] text-[#4D4538] flex-1 truncate">{bond.label}</span>
                         <span className="text-[7px] font-mono" style={{ color: isOut ? brain.color : peer?.color }}>
                           {isOut ? "▸" : "◂"}
                         </span>
@@ -231,7 +231,7 @@ export default function NeuralMap() {
                     );
                   })}
                   {myBonds.length === 0 && (
-                    <div className="text-[8px] text-[#4a4a44] text-center py-3">No direct bonds shown</div>
+                    <div className="text-[8px] text-[#4D4538] text-center py-3">No direct bonds shown</div>
                   )}
                 </div>
               )}
@@ -239,12 +239,12 @@ export default function NeuralMap() {
               {tab === "weakness" && (
                 <div className="space-y-2">
                   {brain.deficiencies.map((d, i) => (
-                    <div key={i} className="bg-[#0a0a0a] border border-[#141414] rounded-lg p-3">
+                    <div key={i} className="bg-[#0B0905] border border-[#141414] rounded-lg p-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[8px] text-[#ef4444]">⚠</span>
-                        <span className="text-[8px] font-bold text-[#c4c0b8]">{d.label}</span>
+                        <span className="text-[8px] text-[#C04438]">⚠</span>
+                        <span className="text-[8px] font-bold text-[#DDD6C4]">{d.label}</span>
                       </div>
-                      <p className="text-[7px] text-[#4a4a44] leading-relaxed pl-4">{d.desc}</p>
+                      <p className="text-[7px] text-[#4D4538] leading-relaxed pl-4">{d.desc}</p>
                     </div>
                   ))}
                 </div>

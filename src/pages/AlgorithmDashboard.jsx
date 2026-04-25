@@ -6,19 +6,19 @@ import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, L
 import { format } from 'date-fns';
 
 const RL_METHODS = {
-  'DDQN': { label: 'DDQN', color: '#FFB81C', desc: 'Double DQN — Value-Based, Low-Float Squeezes' },
-  'DDQN+LSTM': { label: 'DDQN+LSTM', color: '#ef4444', desc: 'Sequence-Based, Crypto Trading' },
-  'GRPO': { label: 'GRPO', color: '#a855f7', desc: 'Group Relative Policy, Options IV' },
-  'LLM+DDQN': { label: 'LLM+DDQN', color: '#22c55e', desc: 'LLM-Guided, Macro Forex' },
-  'PPO+TvrReg': { label: 'PPO+TvrReg', color: '#3b82f6', desc: 'Policy Gradient, Futures Trading' },
-  'A2C': { label: 'A2C', color: '#f59e0b', desc: 'Actor-Critic, ETF Sector Rotation' },
+  'DDQN': { label: 'DDQN', color: '#C8892A', desc: 'Double DQN — Value-Based, Low-Float Squeezes' },
+  'DDQN+LSTM': { label: 'DDQN+LSTM', color: '#C04438', desc: 'Sequence-Based, Crypto Trading' },
+  'GRPO': { label: 'GRPO', color: '#8A54E0', desc: 'Group Relative Policy, Options IV' },
+  'LLM+DDQN': { label: 'LLM+DDQN', color: '#3E9E6B', desc: 'LLM-Guided, Macro Forex' },
+  'PPO+TvrReg': { label: 'PPO+TvrReg', color: '#3A74D4', desc: 'Policy Gradient, Futures Trading' },
+  'A2C': { label: 'A2C', color: '#D4A020', desc: 'Actor-Critic, ETF Sector Rotation' },
 };
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#111] border border-[#2a2a2a] rounded px-2 py-1.5 text-[7px]">
-      <div className="text-[#6b6860]">{label}</div>
+    <div className="bg-[#1A1510] border border-[#3A2E1F] rounded px-2 py-1.5 text-[7px]">
+      <div className="text-[#8A7F6D]">{label}</div>
       {payload.map((p, i) => (
         <div key={i} style={{ color: p.color }}>
           {p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}
@@ -139,14 +139,14 @@ export default function AlgorithmDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
-        <h1 className="text-base font-black tracking-widest text-[#FFB81C]">ALGORITHM PERFORMANCE</h1>
-        <div className="text-[8px] text-[#6b6860]">RL Method Analysis · Cumulative P&L · Sharpe Ratios · Win Rates</div>
+      <div className="sticky top-0 z-10 bg-[#0B0905] border-b border-[#2B2216] px-4 pt-4 pb-3">
+        <h1 className="text-base font-black tracking-widest text-[#C8892A]">ALGORITHM PERFORMANCE</h1>
+        <div className="text-[8px] text-[#8A7F6D]">RL Method Analysis · Cumulative P&L · Sharpe Ratios · Win Rates</div>
       </div>
 
       <div className="px-4 pt-4 pb-6 space-y-4">
         {isLoading && (
-          <div className="text-center py-12 text-[#6b6860] text-[10px] tracking-widest">COMPUTING METRICS...</div>
+          <div className="text-center py-12 text-[#8A7F6D] text-[10px] tracking-widest">COMPUTING METRICS...</div>
         )}
 
         {!isLoading && algoList.length === 0 && (
@@ -167,7 +167,7 @@ export default function AlgorithmDashboard() {
                     className="flex-shrink-0 px-3 py-2 rounded-lg border transition-all text-[7px] font-bold tracking-widest"
                     style={{
                       background: isActive ? info.color + '15' : 'transparent',
-                      border: `1px solid ${isActive ? info.color + '50' : '#1a1a1a'}`,
+                      border: `1px solid ${isActive ? info.color + '50' : '#2B2216'}`,
                       color: isActive ? info.color : '#444',
                     }}
                   >
@@ -181,7 +181,7 @@ export default function AlgorithmDashboard() {
             {activeStats && algoInfo && (
               <>
                 {/* Algorithm Info */}
-                <div className="bg-[#0d0d0d] border rounded-xl p-3.5" style={{ borderColor: algoInfo.color + '30' }}>
+                <div className="bg-[#131009] border rounded-xl p-3.5" style={{ borderColor: algoInfo.color + '30' }}>
                   <div className="flex items-center gap-2.5 mb-2">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm"
                       style={{ background: algoInfo.color + '18', border: `1px solid ${algoInfo.color}35` }}>
@@ -191,50 +191,50 @@ export default function AlgorithmDashboard() {
                       <div className="text-[9px] font-black tracking-widest" style={{ color: algoInfo.color }}>
                         {algoInfo.label}
                       </div>
-                      <div className="text-[7px] text-[#6b6860]">{algoInfo.desc}</div>
+                      <div className="text-[7px] text-[#8A7F6D]">{algoInfo.desc}</div>
                     </div>
                   </div>
 
                   {/* Key Metrics Grid */}
                   <div className="grid grid-cols-5 gap-1.5 pt-2 border-t" style={{ borderColor: algoInfo.color + '12' }}>
-                    <div className="bg-[#111] rounded p-2 text-center">
+                    <div className="bg-[#1A1510] rounded p-2 text-center">
                       <div className="text-[10px] font-black mono">${activeStats.totalPnl.toFixed(0)}</div>
-                      <div className="text-[6px] text-[#4a4a44]">TOTAL P&L</div>
+                      <div className="text-[6px] text-[#4D4538]">TOTAL P&L</div>
                     </div>
-                    <div className="bg-[#111] rounded p-2 text-center">
-                      <div className="text-[10px] font-black mono" style={{ color: activeStats.winRate >= 50 ? '#22c55e' : '#ef4444' }}>
+                    <div className="bg-[#1A1510] rounded p-2 text-center">
+                      <div className="text-[10px] font-black mono" style={{ color: activeStats.winRate >= 50 ? '#3E9E6B' : '#C04438' }}>
                         {activeStats.winRate.toFixed(1)}%
                       </div>
-                      <div className="text-[6px] text-[#4a4a44]">WIN RATE</div>
+                      <div className="text-[6px] text-[#4D4538]">WIN RATE</div>
                     </div>
-                    <div className="bg-[#111] rounded p-2 text-center">
+                    <div className="bg-[#1A1510] rounded p-2 text-center">
                       <div className="text-[10px] font-black mono" style={{ color: algoInfo.color }}>
                         {activeStats.closedTrades.length}
                       </div>
-                      <div className="text-[6px] text-[#4a4a44]">TRADES</div>
+                      <div className="text-[6px] text-[#4D4538]">TRADES</div>
                     </div>
-                    <div className="bg-[#111] rounded p-2 text-center">
-                      <div className="text-[10px] font-black mono" style={{ color: activeStats.avgPnl >= 0 ? '#22c55e' : '#ef4444' }}>
+                    <div className="bg-[#1A1510] rounded p-2 text-center">
+                      <div className="text-[10px] font-black mono" style={{ color: activeStats.avgPnl >= 0 ? '#3E9E6B' : '#C04438' }}>
                         ${activeStats.avgPnl.toFixed(2)}
                       </div>
-                      <div className="text-[6px] text-[#4a4a44]">AVG P&L</div>
+                      <div className="text-[6px] text-[#4D4538]">AVG P&L</div>
                     </div>
-                    <div className="bg-[#111] rounded p-2 text-center">
+                    <div className="bg-[#1A1510] rounded p-2 text-center">
                       <div className="text-[10px] font-black mono" style={{ color: algoInfo.color }}>
                         {activeStats.brains.length}
                       </div>
-                      <div className="text-[6px] text-[#4a4a44]">BRAINS</div>
+                      <div className="text-[6px] text-[#4D4538]">BRAINS</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Cumulative P&L Chart */}
                 {activeStats.pnlHistory.length > 0 && (
-                  <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-                    <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">CUMULATIVE P&L</div>
+                  <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
+                    <div className="text-[7px] text-[#4D4538] tracking-widest mb-2">CUMULATIVE P&L</div>
                     <ResponsiveContainer width="100%" height={160}>
                       <LineChart data={activeStats.pnlHistory} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid stroke="#1a1a1a" />
+                        <CartesianGrid stroke="#2B2216" />
                         <XAxis dataKey="date" tick={{ fill: '#444', fontSize: 10 }} />
                         <YAxis tick={{ fill: '#444', fontSize: 10 }} />
                         <Tooltip content={<CustomTooltip />} />
@@ -246,11 +246,11 @@ export default function AlgorithmDashboard() {
 
                 {/* Sharpe Ratio Trend */}
                 {activeStats.sharpeDaily.length > 0 && (
-                  <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-                    <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">SHARPE RATIO TREND</div>
+                  <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
+                    <div className="text-[7px] text-[#4D4538] tracking-widest mb-2">SHARPE RATIO TREND</div>
                     <ResponsiveContainer width="100%" height={140}>
                       <LineChart data={activeStats.sharpeDaily} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid stroke="#1a1a1a" />
+                        <CartesianGrid stroke="#2B2216" />
                         <XAxis dataKey="date" tick={{ fill: '#444', fontSize: 10 }} />
                         <YAxis tick={{ fill: '#444', fontSize: 10 }} />
                         <Tooltip content={<CustomTooltip />} />
@@ -262,8 +262,8 @@ export default function AlgorithmDashboard() {
 
                 {/* Brains Using This Algorithm */}
                 {activeStats.brains.length > 0 && (
-                  <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
-                    <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">BRAINS USING {algoInfo.label}</div>
+                  <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
+                    <div className="text-[7px] text-[#4D4538] tracking-widest mb-2">BRAINS USING {algoInfo.label}</div>
                     <div className="space-y-1.5">
                       {activeStats.brains.map(brain => {
                         const brainTrades = activeStats.closedTrades.filter(t => t.brain_id === brain.id);
@@ -272,19 +272,19 @@ export default function AlgorithmDashboard() {
                           ? (brainTrades.filter(t => t.pnl > 0).length / brainTrades.length) * 100
                           : 0;
                         return (
-                          <div key={brain.id} className="flex items-center gap-2 px-2.5 py-1.5 bg-[#111] rounded">
+                          <div key={brain.id} className="flex items-center gap-2 px-2.5 py-1.5 bg-[#1A1510] rounded">
                             <span className="text-lg flex-shrink-0">{brain.icon}</span>
                             <div className="flex-1 min-w-0">
                               <div className="text-[8px] font-bold tracking-widest" style={{ color: brain.color }}>
                                 {brain.name}
                               </div>
-                              <div className="text-[6px] text-[#4a4a44]">{brain.focus}</div>
+                              <div className="text-[6px] text-[#4D4538]">{brain.focus}</div>
                             </div>
                             <div className="text-right flex-shrink-0">
-                              <div className="text-[7px] font-bold" style={{ color: brainPnl >= 0 ? '#22c55e' : '#ef4444' }}>
+                              <div className="text-[7px] font-bold" style={{ color: brainPnl >= 0 ? '#3E9E6B' : '#C04438' }}>
                                 {brainPnl >= 0 ? '+' : ''}${brainPnl.toFixed(0)}
                               </div>
-                              <div className="text-[6px] text-[#4a4a44]">{brainWinRate.toFixed(0)}% WR</div>
+                              <div className="text-[6px] text-[#4D4538]">{brainWinRate.toFixed(0)}% WR</div>
                             </div>
                           </div>
                         );

@@ -108,7 +108,7 @@ export default function CorrelationMap() {
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-full items-center justify-center">
-        <div className="text-[8px] text-[#6b6860] tracking-widest">COMPUTING CORRELATIONS...</div>
+        <div className="text-[8px] text-[#8A7F6D] tracking-widest">COMPUTING CORRELATIONS...</div>
       </div>
     );
   }
@@ -119,9 +119,9 @@ export default function CorrelationMap() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 pt-4 pb-3">
-        <h1 className="text-base font-black tracking-widest text-[#FFB81C]">CORRELATION MAP</h1>
-        <div className="text-[8px] text-[#6b6860]">Strategy Overlap · Asset Concentration · Portfolio Risk</div>
+      <div className="sticky top-0 z-10 bg-[#0B0905] border-b border-[#2B2216] px-4 pt-4 pb-3">
+        <h1 className="text-base font-black tracking-widest text-[#C8892A]">CORRELATION MAP</h1>
+        <div className="text-[8px] text-[#8A7F6D]">Strategy Overlap · Asset Concentration · Portfolio Risk</div>
       </div>
 
       <div className="px-4 pt-4 pb-6 space-y-4">
@@ -136,9 +136,9 @@ export default function CorrelationMap() {
               onClick={() => setViewMode(v.id)}
               className="flex-1 py-1.5 text-[7px] font-bold tracking-widest rounded transition-all"
               style={{
-                background: viewMode === v.id ? '#FFB81C15' : 'transparent',
-                color: viewMode === v.id ? '#FFB81C' : '#444',
-                border: `1px solid ${viewMode === v.id ? '#FFB81C40' : '#1a1a1a'}`,
+                background: viewMode === v.id ? '#C8892A15' : 'transparent',
+                color: viewMode === v.id ? '#C8892A' : '#444',
+                border: `1px solid ${viewMode === v.id ? '#C8892A40' : '#2B2216'}`,
               }}
             >
               {v.label}
@@ -151,12 +151,12 @@ export default function CorrelationMap() {
           <>
             {/* Concentration Warning */}
             {topRiskAssets.length > 0 && (
-              <div className="bg-[#ef444415] border border-[#ef444430] rounded-xl p-3">
+              <div className="bg-[#C0443815] border border-[#C0443830] rounded-xl p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm">⚠</span>
-                  <span className="text-[8px] font-bold tracking-widest text-[#ef4444]">CONCENTRATION RISK</span>
+                  <span className="text-[8px] font-bold tracking-widest text-[#C04438]">CONCENTRATION RISK</span>
                 </div>
-                <div className="text-[7px] text-[#d4d0c8]">
+                <div className="text-[7px] text-[#DDD6C4]">
                   {topRiskAssets.length} asset(s) are trading across multiple brains, increasing portfolio risk
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function CorrelationMap() {
 
             {/* Top Risk Assets Grid */}
             <div className="space-y-2">
-              <div className="text-[8px] font-bold tracking-widest text-[#6b6860]">MULTI-BRAIN ASSETS (RISK)</div>
+              <div className="text-[8px] font-bold tracking-widest text-[#8A7F6D]">MULTI-BRAIN ASSETS (RISK)</div>
               {topRiskAssets.length === 0 ? (
                 <div className="text-center py-8 text-[8px] text-[#333]">No overlapping assets yet</div>
               ) : (
@@ -175,12 +175,12 @@ export default function CorrelationMap() {
                       <button
                         key={asset}
                         onClick={() => setSelectedAsset(isSelected ? null : asset)}
-                        className="w-full text-left bg-[#0d0d0d] border rounded-lg p-2.5 transition-all"
-                        style={{ borderColor: isSelected ? '#ef444450' : '#1a1a1a' }}
+                        className="w-full text-left bg-[#131009] border rounded-lg p-2.5 transition-all"
+                        style={{ borderColor: isSelected ? '#C0443850' : '#2B2216' }}
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="mono font-black text-sm text-[#d4d0c8]">{asset}</span>
-                          <span className="px-1.5 py-0.5 rounded text-[6px] font-bold text-[#ef4444] bg-[#ef444415]">
+                          <span className="mono font-black text-sm text-[#DDD6C4]">{asset}</span>
+                          <span className="px-1.5 py-0.5 rounded text-[6px] font-bold text-[#C04438] bg-[#C0443815]">
                             {brainCount} BRAINS
                           </span>
                         </div>
@@ -199,7 +199,7 @@ export default function CorrelationMap() {
                                   >
                                     <span>{brain?.icon}</span>
                                     <span>{brain?.name}</span>
-                                    <span className="text-[#4a4a44]">({assetTrades.length})</span>
+                                    <span className="text-[#4D4538]">({assetTrades.length})</span>
                                   </div>
                                 );
                               })}
@@ -207,15 +207,15 @@ export default function CorrelationMap() {
 
                             {/* Detailed Trades */}
                             <div>
-                              <div className="text-[6px] text-[#4a4a44] tracking-widest mb-1">TRADES ON {asset}</div>
+                              <div className="text-[6px] text-[#4D4538] tracking-widest mb-1">TRADES ON {asset}</div>
                               <div className="space-y-0.5">
                                 {analysis.assetOverlap[asset].trades.map((trade, i) => {
                                   const brain = BRAINS.find(b => b.id === trade.brain_id);
-                                  const pnlColor = trade.pnl && trade.pnl >= 0 ? '#22c55e' : '#ef4444';
+                                  const pnlColor = trade.pnl && trade.pnl >= 0 ? '#3E9E6B' : '#C04438';
                                   return (
                                     <div key={i} className="flex items-center gap-2 text-[6px]">
                                       <span style={{ color: brain?.color }}>{brain?.icon}</span>
-                                      <span className="text-[#4a4a44]">
+                                      <span className="text-[#4D4538]">
                                         {trade.action} @ ${trade.entry_price?.toFixed(2)}
                                       </span>
                                       {trade.pnl != null && (
@@ -243,8 +243,8 @@ export default function CorrelationMap() {
         {viewMode === 'strategies' && (
           <>
             {/* Correlation Heatmap */}
-            <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3 overflow-x-auto">
-              <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">CORRELATION MATRIX (SHARED ASSETS)</div>
+            <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3 overflow-x-auto">
+              <div className="text-[7px] text-[#4D4538] tracking-widest mb-2">CORRELATION MATRIX (SHARED ASSETS)</div>
               <div className="inline-block min-w-full">
                 <table className="text-[6px] border-collapse">
                   <thead>
@@ -282,7 +282,7 @@ export default function CorrelationMap() {
                             return (
                               <td
                                 key={bid2}
-                                className="w-12 h-6 border border-[#111] text-[5px] text-center font-bold text-[#d4d0c8]"
+                                className="w-12 h-6 border border-[#111] text-[5px] text-center font-bold text-[#DDD6C4]"
                                 style={{ background: color }}
                               >
                                 {corr === 1 ? '●' : corr > 0 ? Math.round(corr * 100) : '—'}
@@ -295,12 +295,12 @@ export default function CorrelationMap() {
                   </tbody>
                 </table>
               </div>
-              <div className="text-[6px] text-[#4a4a44] mt-2">● = same brain · numbers = % overlap</div>
+              <div className="text-[6px] text-[#4D4538] mt-2">● = same brain · numbers = % overlap</div>
             </div>
 
             {/* Brain Pair Overlap */}
             <div className="space-y-2">
-              <div className="text-[8px] font-bold tracking-widest text-[#6b6860]">BRAIN PAIR OVERLAPS</div>
+              <div className="text-[8px] font-bold tracking-widest text-[#8A7F6D]">BRAIN PAIR OVERLAPS</div>
               {Object.entries(analysis.brainPairs)
                 .sort((a, b) => b[1].overlap - a[1].overlap)
                 .slice(0, 8)
@@ -309,26 +309,26 @@ export default function CorrelationMap() {
                   const brain1 = BRAINS.find(b => b.id === bid1);
                   const brain2 = BRAINS.find(b => b.id === bid2);
                   return (
-                    <div key={pair} className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-2.5">
+                    <div key={pair} className="bg-[#131009] border border-[#2B2216] rounded-lg p-2.5">
                       <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-1.5">
                           <span className="text-sm">{brain1?.icon}</span>
                           <span className="text-[8px] font-bold" style={{ color: brain1?.color }}>
                             {brain1?.name}
                           </span>
-                          <span className="text-[#3a3a3a]">↔</span>
+                          <span className="text-[#4D4538]">↔</span>
                           <span className="text-sm">{brain2?.icon}</span>
                           <span className="text-[8px] font-bold" style={{ color: brain2?.color }}>
                             {brain2?.name}
                           </span>
                         </div>
-                        <span className="text-[7px] font-bold px-1.5 py-0.5 rounded bg-[#FFB81C15] text-[#FFB81C]">
+                        <span className="text-[7px] font-bold px-1.5 py-0.5 rounded bg-[#C8892A15] text-[#C8892A]">
                           {overlap} ASSETS
                         </span>
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {assets.map(asset => (
-                          <span key={asset} className="text-[6px] px-1 py-0.5 rounded bg-[#111] text-[#7a7a74]">
+                          <span key={asset} className="text-[6px] px-1 py-0.5 rounded bg-[#1A1510] text-[#8A7F6D]">
                             {asset}
                           </span>
                         ))}
@@ -342,28 +342,28 @@ export default function CorrelationMap() {
 
         {/* Strategy Distribution */}
         <div className="space-y-2">
-          <div className="text-[8px] font-bold tracking-widest text-[#6b6860]">PLAY TYPE CONCENTRATION</div>
+          <div className="text-[8px] font-bold tracking-widest text-[#8A7F6D]">PLAY TYPE CONCENTRATION</div>
           {Object.entries(analysis.playTypeOverlap)
             .sort((a, b) => b[1].count - a[1].count)
             .slice(0, 6)
             .map(([playType, { count, assets }]) => {
               const assetCount = assets.size;
               const concentration = assetCount > 1 ? 'Medium Risk' : 'Low Risk';
-              const riskColor = assetCount > 2 ? '#ef4444' : assetCount > 1 ? '#FFB81C' : '#22c55e';
+              const riskColor = assetCount > 2 ? '#C04438' : assetCount > 1 ? '#C8892A' : '#3E9E6B';
               return (
-                <div key={playType} className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-2.5">
+                <div key={playType} className="bg-[#131009] border border-[#2B2216] rounded-lg p-2.5">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[8px] font-bold tracking-widest capitalize">{playType.replace(/_/g, ' ')}</span>
                     <div className="flex items-center gap-1.5">
                       <span className="text-[7px] px-1 py-0.5 rounded" style={{ background: riskColor + '15', color: riskColor }}>
                         {count} trades
                       </span>
-                      <span className="text-[7px] text-[#4a4a44]">{assetCount} asset(s)</span>
+                      <span className="text-[7px] text-[#4D4538]">{assetCount} asset(s)</span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {Array.from(assets).map(asset => (
-                      <span key={asset} className="text-[6px] px-1 py-0.5 rounded bg-[#111] text-[#7a7a74]">
+                      <span key={asset} className="text-[6px] px-1 py-0.5 rounded bg-[#1A1510] text-[#8A7F6D]">
                         {asset}
                       </span>
                     ))}

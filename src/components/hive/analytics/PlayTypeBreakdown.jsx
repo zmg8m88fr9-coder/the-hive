@@ -9,20 +9,20 @@ const PLAY_LABELS = {
 };
 
 const PLAY_COLORS = {
-  momentum: '#f59e0b', short_squeeze: '#ef4444', bull_flag: '#22c55e',
-  bear_flag: '#ef4444', scalp: '#3b82f6', breakout: '#FFB81C',
-  reversal: '#a855f7', mean_reversion: '#06b6d4', gamma_squeeze: '#f97316',
-  trend_follow: '#22c55e', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
-  vwap_trend_day: '#22c55e', unknown: '#555',
+  momentum: '#D4A020', short_squeeze: '#C04438', bull_flag: '#3E9E6B',
+  bear_flag: '#C04438', scalp: '#3A74D4', breakout: '#C8892A',
+  reversal: '#8A54E0', mean_reversion: '#06b6d4', gamma_squeeze: '#f97316',
+  trend_follow: '#3E9E6B', news_catalyst: '#ec4899', liquidity_sweep: '#8b5cf6',
+  vwap_trend_day: '#3E9E6B', unknown: '#555',
 };
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   const val = payload[0]?.value ?? 0;
   return (
-    <div className="bg-[#111] border border-[#2a2a2a] rounded-lg px-3 py-2 text-[7px] font-mono shadow-xl">
-      <div className="text-[#6b6860] mb-1">{label}</div>
-      <div style={{ color: val >= 0 ? '#22c55e' : '#ef4444' }} className="font-bold">
+    <div className="bg-[#1A1510] border border-[#2a2a2a] rounded-lg px-3 py-2 text-[7px] font-mono shadow-xl">
+      <div className="text-[#8A7F6D] mb-1">{label}</div>
+      <div style={{ color: val >= 0 ? '#3E9E6B' : '#C04438' }} className="font-bold">
         {val >= 0 ? '+' : ''}${val.toFixed(2)} P&L
       </div>
     </div>
@@ -53,7 +53,7 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
   return (
     <div className="space-y-3">
       {/* P&L by play type chart */}
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-3">
+      <div className="bg-[#131009] border border-[#2B2216] rounded-xl p-3">
         <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">P&L BY PLAY TYPE (ALL BRAINS)</div>
         <ResponsiveContainer width="100%" height={160}>
           <BarChart data={chartData} margin={{ top: 2, right: 4, left: -20, bottom: 0 }}>
@@ -62,7 +62,7 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
             <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="pnl" radius={[2, 2, 0, 0]} isAnimationActive={false}>
               {chartData.map((entry) => (
-                <Cell key={entry.key} fill={entry.pnl >= 0 ? (PLAY_COLORS[entry.key] ?? '#22c55e') : '#ef4444'} />
+                <Cell key={entry.key} fill={entry.pnl >= 0 ? (PLAY_COLORS[entry.key] ?? '#3E9E6B') : '#C04438'} />
               ))}
             </Bar>
           </BarChart>
@@ -70,12 +70,12 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
       </div>
 
       {/* Play type table */}
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl overflow-hidden">
+      <div className="bg-[#131009] border border-[#2B2216] rounded-xl overflow-hidden">
         <div className="text-[7px] text-[#3a3a3a] tracking-widest px-3 pt-3 pb-2">PLAY TYPE RANKING</div>
         <div className="overflow-x-auto">
           <table className="w-full text-[7px] font-mono">
             <thead>
-              <tr className="border-b border-[#1a1a1a]">
+              <tr className="border-b border-[#2B2216]">
                 {['PLAY', 'TRADES', 'WIN RATE', 'TOTAL P&L', 'AVG P&L'].map(h => (
                   <th key={h} className="text-left py-1.5 px-3 text-[6px] text-[#3a3a3a] tracking-widest">{h}</th>
                 ))}
@@ -93,16 +93,16 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
                     </td>
                     <td className="py-2 px-3 text-[#7a7a74]">{row.count}</td>
                     <td className="py-2 px-3">
-                      <span className="font-bold" style={{ color: row.winRate >= 55 ? '#22c55e' : row.winRate >= 45 ? '#FFB81C' : '#ef4444' }}>
+                      <span className="font-bold" style={{ color: row.winRate >= 55 ? '#3E9E6B' : row.winRate >= 45 ? '#C8892A' : '#C04438' }}>
                         {row.winRate.toFixed(1)}%
                       </span>
                     </td>
                     <td className="py-2 px-3 font-black"
-                      style={{ color: row.pnl >= 0 ? '#22c55e' : '#ef4444' }}>
+                      style={{ color: row.pnl >= 0 ? '#3E9E6B' : '#C04438' }}>
                       {row.pnl >= 0 ? '+' : ''}${row.pnl.toFixed(2)}
                     </td>
                     <td className="py-2 px-3 font-black"
-                      style={{ color: avgPnl >= 0 ? '#22c55e' : '#ef4444' }}>
+                      style={{ color: avgPnl >= 0 ? '#3E9E6B' : '#C04438' }}>
                       {avgPnl >= 0 ? '+' : ''}${avgPnl.toFixed(2)}
                     </td>
                   </tr>
@@ -118,7 +118,7 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
         <div className="text-[7px] text-[#3a3a3a] tracking-widest mb-2">BEST PLAY TYPE PER BRAIN</div>
         <div className="space-y-1.5">
           {brainStats.map(({ brain, bestPlay }) => (
-            <div key={brain.id} className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl px-3 py-2 flex items-center gap-3">
+            <div key={brain.id} className="bg-[#131009] border border-[#2B2216] rounded-xl px-3 py-2 flex items-center gap-3">
               <span className="text-sm">{brain.icon}</span>
               <div className="w-20 flex-shrink-0">
                 <div className="text-[8px] font-black tracking-widest" style={{ color: brain.color }}>{brain.name}</div>
@@ -129,7 +129,7 @@ export default function PlayTypeBreakdown({ allPlayStats, brainStats }) {
                     style={{ background: (PLAY_COLORS[bestPlay.name] ?? '#555') + '18', color: PLAY_COLORS[bestPlay.name] ?? '#555' }}>
                     {PLAY_LABELS[bestPlay.name] ?? bestPlay.name}
                   </span>
-                  <span className="text-[7px] text-[#22c55e] font-bold ml-auto">+${bestPlay.totalPnl.toFixed(2)}</span>
+                  <span className="text-[7px] text-[#3E9E6B] font-bold ml-auto">+${bestPlay.totalPnl.toFixed(2)}</span>
                   <span className="text-[6px] text-[#444]">{bestPlay.count} trades</span>
                 </>
               ) : (

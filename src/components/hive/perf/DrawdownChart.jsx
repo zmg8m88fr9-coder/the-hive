@@ -4,13 +4,13 @@ import { useMemo } from 'react';
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg px-2.5 py-2 text-[8px]">
-      <div className="text-[#6b6860] mb-1">{label}</div>
+    <div className="bg-[#131009] border border-[#2a2a2a] rounded-lg px-2.5 py-2 text-[8px]">
+      <div className="text-[#8A7F6D] mb-1">{label}</div>
       {payload.map(p => (
         <div key={p.dataKey} className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: p.color }} />
           <span style={{ color: p.color }}>{p.name}</span>
-          <span className="text-[#ef4444] ml-auto font-mono">-{Math.abs(p.value).toFixed(1)}%</span>
+          <span className="text-[#C04438] ml-auto font-mono">-{Math.abs(p.value).toFixed(1)}%</span>
         </div>
       ))}
     </div>
@@ -34,7 +34,7 @@ export default function DrawdownChart({ history, brains }) {
 
   return (
     <div>
-      <div className="text-[9px] font-bold tracking-widest text-[#ef4444] mb-3">DRAWDOWN FROM PEAK — 90 DAYS</div>
+      <div className="text-[9px] font-bold tracking-widest text-[#C04438] mb-3">DRAWDOWN FROM PEAK — 90 DAYS</div>
       <ResponsiveContainer width="100%" height={220}>
         <AreaChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
           <defs>

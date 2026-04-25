@@ -27,10 +27,21 @@ const AuthenticatedApp = () => {
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-[#0a0a0a]">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-[#1a1a1a] border-t-[#FFB81C] rounded-full animate-spin" />
-          <div className="text-[8px] text-[#FFB81C] tracking-widest animate-pulse">HIVE LOADING...</div>
+      <div className="fixed inset-0 flex items-center justify-center bg-[#0B0905]">
+        <div className="flex flex-col items-center gap-4">
+          {/* Hexagonal logo mark */}
+          <svg width="40" height="46" viewBox="0 0 40 46" fill="none" className="mb-1">
+            <path d="M20 2L38 11.5V30.5L20 40L2 30.5V11.5Z"
+              fill="none" stroke="#C8892A" strokeWidth="1.5" opacity="0.4"/>
+            <path d="M20 2L38 11.5V30.5L20 40L2 30.5V11.5Z"
+              fill="none" stroke="#C8892A" strokeWidth="1.5"
+              strokeDasharray="120" strokeDashoffset="120"
+              style={{ animation: 'hive-spin 1.2s linear infinite' }}/>
+          </svg>
+          <div className="cinzel text-[10px] font-semibold text-[#C8892A] tracking-[0.3em] animate-pulse">
+            THE HIVE
+          </div>
+          <div className="text-[7px] text-[#4D4538] tracking-widest">INITIALIZING NEURAL WEB</div>
         </div>
       </div>
     );
@@ -46,7 +57,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-[#0a0a0a] text-[#d4d0c8] flex flex-col" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+    <div className="fixed inset-0 bg-[#0B0905] text-[#DDD6C4] flex flex-col" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
       <main className="flex-1 overflow-y-auto">
         <Routes>
           <Route path="/" element={<HiveCommand />} />
