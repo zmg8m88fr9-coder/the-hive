@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useMemo } from 'react';
+import { INDICATOR_LIST } from '../lib/indicatorAgents';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BRAINS, generateSpark } from '../lib/hiveData';
@@ -292,6 +293,31 @@ export default function BrainDetail() {
                     <div className="mono text-[9px] font-bold" style={{ color }}>{sym}</div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="text-[8px] tracking-widest mb-2" style={{ color: color + "60" }}>INDICATOR GRAPH AGENTS</div>
+              <div className="space-y-1.5">
+                {INDICATOR_LIST.filter(ind => ind.primaryBrains.includes(brain.id)).map(ind => (
+                  <Link key={ind.id} to={`/indicators/${ind.id}`}>
+                    <div className="flex items-center gap-2 bg-[#111] border border-[#1a1a1a] rounded-lg px-3 py-2 mb-1.5 active:opacity-70"
+                      style={{ borderColor: ind.color + '20' }}>
+                      <span className="text-sm">{ind.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[8px] font-bold" style={{ color: ind.color }}>{ind.label}</div>
+                        <div className="text-[6px] text-[#4a4a44] truncate">{ind.description}</div>
+                      </div>
+                      <span className="text-[#333] text-xs">→</span>
+                    </div>
+                  </Link>
+                ))}
+                <Link to={`/indicators`}>
+                  <div className="text-center py-2 text-[7px] font-bold tracking-widest"
+                    style={{ color: color + '60' }}>
+                    VIEW ALL 21 INDICATOR AGENTS →
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

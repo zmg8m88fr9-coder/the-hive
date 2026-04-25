@@ -29,6 +29,8 @@ import ForexAgent from './pages/agents/ForexAgent';
 import FuturesAgent from './pages/agents/FuturesAgent';
 import ETFAgent from './pages/agents/ETFAgent';
 import EconAgent from './pages/agents/EconAgent';
+import IndicatorHub from './pages/IndicatorHub';
+import IndicatorAgent from './pages/agents/IndicatorAgent';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -79,6 +81,8 @@ const AuthenticatedApp = () => {
           <Route path="/market/futures" element={<FuturesAgent />} />
           <Route path="/market/etf" element={<ETFAgent />} />
           <Route path="/market/econ" element={<EconAgent />} />
+          <Route path="/indicators" element={<IndicatorHub />} />
+          <Route path="/indicators/:indicatorId" element={<IndicatorAgent />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>

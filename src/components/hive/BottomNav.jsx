@@ -13,6 +13,7 @@ const NAV = [
   { path: "/library",     icon: "⨳", label: "LIBRARY" },
   { path: "/correlations", icon: "◇", label: "RISK"   },
   { path: "/market",      icon: "◈", label: "MARKET"  },
+  { path: "/indicators",  icon: "◑", label: "CHARTS"  },
   { path: "/chat",        icon: "⦿", label: "CHAT"    },
 ];
 
