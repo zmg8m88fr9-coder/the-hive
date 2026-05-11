@@ -21,6 +21,16 @@ import AlgorithmLibrary from './pages/AlgorithmLibrary';
 import CorrelationMap from './pages/CorrelationMap';
 import BrainHeatmap from './pages/BrainHeatmap';
 import BenchmarkComparison from './pages/BenchmarkComparison';
+import MarketHub from './pages/MarketHub';
+import StocksAgent from './pages/agents/StocksAgent';
+import CryptoAgent from './pages/agents/CryptoAgent';
+import OptionsAgent from './pages/agents/OptionsAgent';
+import ForexAgent from './pages/agents/ForexAgent';
+import FuturesAgent from './pages/agents/FuturesAgent';
+import ETFAgent from './pages/agents/ETFAgent';
+import EconAgent from './pages/agents/EconAgent';
+import IndicatorHub from './pages/IndicatorHub';
+import IndicatorAgent from './pages/agents/IndicatorAgent';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -63,6 +73,16 @@ const AuthenticatedApp = () => {
           <Route path="/correlations" element={<CorrelationMap />} />
           <Route path="/heatmap" element={<BrainHeatmap />} />
           <Route path="/alpha" element={<BenchmarkComparison />} />
+          <Route path="/market" element={<MarketHub />} />
+          <Route path="/market/stocks" element={<StocksAgent />} />
+          <Route path="/market/crypto" element={<CryptoAgent />} />
+          <Route path="/market/options" element={<OptionsAgent />} />
+          <Route path="/market/forex" element={<ForexAgent />} />
+          <Route path="/market/futures" element={<FuturesAgent />} />
+          <Route path="/market/etf" element={<ETFAgent />} />
+          <Route path="/market/econ" element={<EconAgent />} />
+          <Route path="/indicators" element={<IndicatorHub />} />
+          <Route path="/indicators/:indicatorId" element={<IndicatorAgent />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
